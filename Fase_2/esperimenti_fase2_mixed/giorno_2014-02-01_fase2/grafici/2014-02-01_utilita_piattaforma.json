@@ -1,0 +1,32 @@
+{
+  "percorso_file": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_mixed/giorno_2014-02-01_fase2/grafici/2014-02-01_utilita_piattaforma.png",
+  "tipo_grafico": "confronto_utilita",
+  "parametri": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "statistiche_dati": {
+    "n_ore": 12,
+    "media_u0_mech": 434.7107754861225,
+    "media_u0_eff": 320.87360941161586,
+    "media_gap_utilita": 113.83716607450668,
+    "config_razionalita_limitata": {
+      "soglia_avviso_offerta_pct": 15.0,
+      "simula_azzardo_morale": true
+    },
+    "git_commit_hash": "27d70fd"
+  },
+  "timestamp_generazione": "2025-12-05T23:13:33.592690"
+}

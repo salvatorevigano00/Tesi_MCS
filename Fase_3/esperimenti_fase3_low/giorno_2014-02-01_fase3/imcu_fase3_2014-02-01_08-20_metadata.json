@@ -1,0 +1,87 @@
+{
+  "experiment_id": "imcu_fase3_2014-02-01_08-20",
+  "execution": {
+    "timestamp_start": "2025-12-05T23:18:08.583490",
+    "timestamp_end": "2025-12-05T23:18:15.055606",
+    "duration_seconds": 6.472116
+  },
+  "configuration": {
+    "raw_data_path": "/Users/salvatorevigano/Documents/MCS_Thesis/dati/taxi_february.txt",
+    "day": "2014-02-01",
+    "hour_start": 8,
+    "hour_end": 20,
+    "block_size": 4,
+    "cell_size_m": 500,
+    "task_radius_m": 2500.0,
+    "bbox": null,
+    "max_users": 316,
+    "cost_params": [
+      0.45,
+      0.7
+    ],
+    "value_mode": "demand_log",
+    "norm_mode": "percentiles",
+    "percentile_low": 2.0,
+    "percentile_high": 98.0,
+    "plot_dpi": 300,
+    "output_dir": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_3/esperimenti_fase3_low",
+    "random_seed": 42,
+    "save_raw_logs": false,
+    "verify_properties": true,
+    "dataset_out": null,
+    "rationality_distribution": "low",
+    "defection_mode": "profile_based",
+    "fft_type": "LENIENT",
+    "task_value_min": 1.8,
+    "task_value_max": 15.0,
+    "report_name": "REPORT_RIEPILOGATIVO_FASE3.txt",
+    "high_value_threshold_pct": 0.8,
+    "min_reliability_critical": 0.7,
+    "max_reliability_critical": 0.85,
+    "min_quality_target_critical": 0.4,
+    "max_quality_target_critical": 0.6,
+    "min_feedback_weight_critical": 1.5,
+    "max_feedback_weight_critical": 2.5,
+    "razionalita_limitata": {
+      "distribuzione_razionalita": "low",
+      "modalita_defezione": "profile_based",
+      "tipo_fft": "LENIENT",
+      "valore_task_min": 1.8,
+      "valore_task_max": 15.0
+    },
+    "simulazione": {
+      "tipo": "Fase 3 - Stateful Adattiva",
+      "stato": "Persistente (utenti apprendono ora per ora)"
+    },
+    "gap_parametri": {
+      "high_value_threshold_pct": 0.8,
+      "reliability_range": [
+        0.7,
+        0.85
+      ],
+      "quality_target_range": [
+        0.4,
+        0.6
+      ],
+      "feedback_weight_range": [
+        1.5,
+        2.5
+      ]
+    }
+  },
+  "data_source": {
+    "path": "/Users/salvatorevigano/Documents/MCS_Thesis/dati/taxi_february.txt",
+    "sha256": "ea282cd631b66ebbb79680939293956301be769282c9c02d0d989ecdf53e0cc1",
+    "size_bytes": 1608435716
+  },
+  "environment": {
+    "python_version": "3.13.9",
+    "platform": "macOS-26.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "hostname": "Salvatores-Air.wind3.hub"
+  },
+  "software_versions": {
+    "numpy": "2.3.3",
+    "matplotlib": "3.10.6"
+  }
+}

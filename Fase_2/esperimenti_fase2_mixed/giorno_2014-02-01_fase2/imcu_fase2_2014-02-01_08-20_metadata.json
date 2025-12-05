@@ -1,0 +1,60 @@
+{
+  "experiment_id": "imcu_fase2_2014-02-01_08-20",
+  "execution": {
+    "timestamp_start": "2025-12-05T23:13:28.516100",
+    "timestamp_end": "2025-12-05T23:13:33.801425",
+    "duration_seconds": 5.285325
+  },
+  "configuration": {
+    "raw_data_path": "/Users/salvatorevigano/Documents/MCS_Thesis/dati/taxi_february.txt",
+    "day": "2014-02-01",
+    "hour_start": 8,
+    "hour_end": 20,
+    "block_size": 4,
+    "cell_size_m": 500,
+    "task_radius_m": 2500.0,
+    "bbox": null,
+    "max_users": 316,
+    "cost_params": [
+      0.45,
+      0.7
+    ],
+    "value_mode": "demand_log",
+    "norm_mode": "percentiles",
+    "percentile_low": 2.0,
+    "percentile_high": 98.0,
+    "plot_dpi": 300,
+    "output_dir": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_mixed",
+    "random_seed": 42,
+    "save_raw_logs": false,
+    "verify_properties": false,
+    "dataset_out": null,
+    "rationality_distribution": "mixed",
+    "defection_mode": "profile_based",
+    "fft_type": "LENIENT",
+    "task_value_min": 1.8,
+    "task_value_max": 15.0,
+    "razionalita_limitata": {
+      "distribuzione_razionalita": "mixed",
+      "modalita_defezione": "profile_based",
+      "tipo_fft": "LENIENT",
+      "valore_task_min": 1.8,
+      "valore_task_max": 15.0
+    }
+  },
+  "data_source": {
+    "path": "/Users/salvatorevigano/Documents/MCS_Thesis/dati/taxi_february.txt",
+    "sha256": "ea282cd631b66ebbb79680939293956301be769282c9c02d0d989ecdf53e0cc1",
+    "size_bytes": 1608435716
+  },
+  "environment": {
+    "python_version": "3.13.9",
+    "platform": "macOS-26.1-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "hostname": "Salvatores-Air.wind3.hub"
+  },
+  "software_versions": {
+    "numpy": "2.3.3",
+    "matplotlib": "3.10.6"
+  }
+}

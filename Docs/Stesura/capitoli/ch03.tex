@@ -1,0 +1,312 @@
+\chapter{Modello Matematico del Sistema e degli Agenti}
+\label{chap:modello-matematico}
+
+\section{Introduzione al Modello Computazionale}
+\label{sec:intro-modello}
+La valutazione rigorosa delle performance di un algoritmo di incentivazione non può prescindere da una definizione formale e precisa del contesto operativo in cui esso viene applicato. Prima di poter discutere di aste, strategie di bidding o allocazione delle risorse, è necessario definire il "terreno di gioco": un framework matematico capace di descrivere le interazioni tra gli attori coinvolti, le loro motivazioni economiche e i vincoli fisici che ne limitano l'azione.
+\newline
+\newline
+L'obiettivo di questo capitolo è quindi duplice:
+\begin{itemize}
+    \item In primo luogo, si intende tradurre lo scenario operativo di una campagna di \textit{Mobile Crowdsensing} (MCS) in un modello computabile, definendo le variabili di stato e le funzioni obiettivo che governano il sistema;
+    \item In secondo luogo, si vuole colmare il divario tra i modelli teorici astratti — spesso basati su assunzioni semplificatorie — e la complessità di uno scenario reale, caratterizzato da eterogeneità spaziale e temporale.
+    \newpage
+\end{itemize}
+Come riferimento teorico fondamentale, in questa tesi si adotta il modello \textbf{User-Centric} proposto in letteratura da Yang et al.~\cite{yang2015incentive}. A differenza dei modelli \textit{platform-centric}, dove l'ente centrale impone prezzi e task, l'approccio user-centric delega agli utenti la libertà di dichiarare i propri costi e le proprie preferenze, introducendo una dinamica di mercato competitiva che richiede l'uso della Teoria dei Giochi per essere analizzata; tuttavia, l'adozione pura del modello teorico non è sufficiente per una validazione che abbia rilevanza pratica. Per evitare di lavorare su uno scenario puramente sintetico, il modello matematico è stato adattato e calibrato per rispecchiare una situazione reale di mobilità urbana. A tal fine, il framework integra i dati effettivi dei flussi di taxi nella città di Roma, estratti dal dataset CRAWDAD~\cite{bracciale2022crawdad}. Questa scelta metodologica permette di ancorare la simulazione a vincoli topologici e pattern di mobilità realistici, rendendo i risultati dell'analisi economica direttamente applicabili a contesti urbani concreti.
+\newline
+\newline
+Possiamo schematizzare il sistema risultante come un mercato elettronico (\textit{e-market}) dinamico, in cui la domanda di informazioni geolocalizzate incontra l'offerta di risorse di sensing distribuite. Le entità che popolano e animano questo ecosistema sono tre:
+\begin{enumerate}
+    \item \textbf{La Piattaforma (Crowdsourcer):} È l'ente centrale (ad esempio, una municipalità, un'agenzia per il monitoraggio ambientale o un centro di ricerca) che ha la necessità di raccogliere dati distribuiti sul territorio. Il suo ruolo è quello di \textit{market maker}: definisce i task da svolgere, gestisce l'asta inversa per selezionare gli utenti più idonei e remunera i partecipanti, operando sempre sotto un vincolo di budget prefissato che ne limita la capacità di spesa.
+    \item \textbf{I Task ($\mathcal{T}$):} Rappresentano l'unità elementare della domanda di dati. Non sono richieste generiche, ma obiettivi precisi ancorati allo spazio e al tempo (es. "misurare l'inquinamento acustico in Piazza Venezia tra le 08:00 e le 09:00"). A ogni task la piattaforma associa un valore economico ($\nu$), che riflette l'utilità marginale o l'importanza strategica di quel dato specifico per il servizio finale.
+    \item \textbf{Gli Utenti ($\mathcal{U}$):} Costituiscono la controparte operativa dell'offerta. Nel nostro caso di studio, questi corrispondono ai tassisti romani: agenti mobili che, muovendosi per le proprie attività lavorative primarie, possono offrire servizi di sensing in modalità opportunistica o partecipativa. Essi sono modellati come agenti razionali che sostengono costi operativi reali (carburante, tempo, usura del veicolo) e richiedono una compensazione adeguata per deviare dai loro percorsi o impegnare le proprie risorse.
+    \newpage
+\end{enumerate}
+\section{L'Entità Task: Formalizzazione della Domanda}
+\label{sec:entita-task}
+
+All'interno del sistema, il \textbf{task di sensing} costituisce l'unità elementare della domanda. Invece di utilizzare grafi sintetici o distribuzioni spaziali casuali, che spesso semplificano eccessivamente la realtà urbana, in questo lavoro ogni task è stato ancorato a coordinate geospaziali reali. Nello specifico, la posizione dei task è derivata direttamente dalla densità dei punti di interesse estratti dal dataset dei taxi di Roma, garantendo così che la domanda di dati sia coerente con le aree effettivamente frequentate e accessibili dalla flotta.
+
+Possiamo formalizzare questa entità come segue:
+
+\begin{definition}[Task di Sensing]
+    Ogni task $\tau_j$ è identificato univocamente da una tupla:
+    \begin{equation}
+        \tau_j = \langle id_j, \text{pos}_j, \nu_j \rangle
+    \end{equation}
+    dove:
+    \begin{itemize}
+        \item $id_j \in \mathbb{N}^+$ è l'identificativo numerico del task.
+        \item $\text{pos}_j = (\phi_j, \lambda_j)$ indica la posizione geografica precisa (latitudine e longitudine) nel sistema di riferimento WGS84 (EPSG:4326), che corrisponde al punto in cui deve essere effettuata la rilevazione.
+        \item $\nu_j \in \mathbb{R}^+_0$ rappresenta il \textbf{valore} (\textit{valuation}) del task. Questa variabile è cruciale perché quantifica economicamente l'utilità marginale che la piattaforma attribuisce al completamento di quel particolare task.
+    \end{itemize}
+\end{definition}
+Per quanto riguarda la determinazione del valore $\nu_j$, è necessario adottare un modello probabilistico che rifletta l'eterogeneità dell'importanza dei dati (alcuni dati valgono più di altri). In linea con la letteratura di riferimento, e per mantenere la comparabilità metodologica con il lavoro di Yang et al.~\cite{yang2015incentive}, si è scelto di modellare il valore come una variabile casuale.
+
+\begin{definition}[Distribuzione del Valore dei Task]
+    Il valore $\nu_j$ di ciascun task è estratto da una distribuzione \textbf{uniforme} continua definita nell'intervallo $[\nu_{\min}, \nu_{\max}]$. La relativa funzione di densità di probabilità (PDF) è:
+    \begin{equation}
+        f(\nu) = \begin{cases} 
+            \frac{1}{\nu_{\max} - \nu_{\min}} & \text{se } \nu \in [\nu_{\min}, \nu_{\max}] \\
+            0 & \text{altrimenti}
+        \end{cases}
+    \end{equation}
+    \newpage
+\end{definition}
+Un aspetto fondamentale di questa fase è stata la \textbf{calibrazione dei parametri economici}. Per la Fase 1, non si sono scelti valori arbitrari, ma si è proceduto a una stima empirica volta a garantire la sostenibilità del sistema. I parametri sono stati fissati come segue:
+
+\begin{equation}
+    \begin{aligned}
+        \nu_{\min} &= 1.8 \text{ \euro} \\
+        \nu_{\max} &= 15.0 \text{ \euro}
+    \end{aligned}
+\end{equation}
+
+La logica dietro questa scelta è duplice. Da un lato, si vuole evitare che i task abbiano valori irrisori che verrebbero sistematicamente ignorati; dall'altro, si vuole limitare l'esborso massimo per la piattaforma.
+Con questi estremi, il valore medio atteso di un task risulta essere:
+\[
+\mathbb{E}[V] = \frac{1.8\ \text{\euro} + 15.0\ \text{\euro}}{2} = 8.4 \text{ \euro}
+\]
+Confrontando questo valore con i costi operativi stimati per i tassisti (che, come vedremo, si aggirano intorno a una media di 5.75 \euro{} per servire un pacchetto tipico di 5 task entro 2 km, assumendo un costo chilometrico $\kappa \approx 0.575$ \euro/km), otteniamo un rapporto di profittabilità:
+\[
+\frac{\mathbb{E}[V]}{\text{costo medio}} \approx 1.46
+\]
+Questo margine di circa il 46\% è stato introdotto intenzionalmente per assicurare che la partecipazione sia, in media, \textit{economicamente vantaggiosa} per gli utenti. Senza questo incentivo strutturale, il vincolo di \textit{Razionalità Individuale} rischierebbe di non essere soddisfatto per una larga parte della popolazione, compromettendo la validità della simulazione.
+\section{L'Entità Utente: L'Agente Razionale}
+\label{sec:entita-utente}
+Dopo aver definito la domanda (i task), passiamo ad analizzare l'offerta, ovvero gli utenti che eseguono le rilevazioni. In questo modello, gli utenti non sono semplici nodi passivi di una rete, ma vengono modellati come \textbf{agenti economici autonomi}.
+\newline
+\newline
+Per questa prima fase sperimentale, assumiamo che tali agenti operino in regime di \textbf{razionalità perfetta}: ciò significa che sono in grado di calcolare esattamente i propri costi e agiscono sempre per massimizzare il proprio profitto (un'assunzione forte che verrà poi rilassata nelle fasi successive per introdurre maggior realismo comportamentale).
+\newpage
+Nel contesto specifico del nostro caso di studio, questi agenti corrispondono ai tassisti operanti nell'area metropolitana di Roma, le cui tracce di mobilità sono state estratte dal dataset CRAWDAD~\cite{bracciale2022crawdad}. Formalmente, possiamo definire ogni agente attraverso la seguente tupla:
+
+\begin{definition}[Utente/Agente]
+Un utente $u_i$ è caratterizzato da quattro elementi fondamentali:
+\begin{equation}
+u_i = \langle id_i, \text{pos}_i, \kappa_i, \Gamma_i \rangle
+\end{equation}
+dove:
+\begin{itemize}
+    \item $id_i \in \mathbb{N}^+$ è l'identificativo univoco che ci permette di tracciare l'agente nel sistema.
+    \item $\text{pos}_i \in \mathbb{R}^2$ rappresenta la posizione iniziale dell'utente (latitudine e longitudine proiettate), corrispondente all'ultima posizione nota registrata nel dataset prima dell'inizio dell'asta.
+    \item $\kappa_i \in \mathbb{R}^+$ è il \textbf{costo operativo chilometrico} (\euro/km). È un parametro privato fondamentale, poiché rappresenta quanto "costa" all'utente percorrere un chilometro aggiuntivo per servire la piattaforma.
+    \item $\Gamma_i \subseteq \mathcal{T}$ è il \textbf{pacchetto di task} (\textit{bundle}) ammissibili. Non rappresenta tutti i task del sistema, ma solo quel sottoinsieme che l'utente $i$ è effettivamente in grado di raggiungere e considerare.
+\end{itemize}
+\end{definition}
+Un'attenzione particolare merita il parametro $\kappa_i$, che serve a catturare l'eterogeneità della flotta reale. Non tutti i veicoli hanno gli stessi costi: il consumo di carburante, l'usura, i costi di manutenzione e l'efficienza del motore variano da auto ad auto.
+Per rendere la simulazione verosimile, abbiamo analizzato i costi operativi del trasporto pubblico non di linea a Roma (con riferimento all'anno del dataset, il 2014). Sulla base di questa analisi, abbiamo modellato $\kappa_i$ come una variabile aleatoria uniforme:
+\begin{equation}
+\kappa_i \sim \mathcal{U}[0.45, 0.70] \text{ \euro/km}
+\end{equation}
+Questo intervallo non è casuale: il limite inferiore (0.45 \euro/km) riflette i costi di veicoli moderni e performanti (es. motorizzazioni diesel efficienti o ibride), mentre il limite superiore (0.70 \euro/km) rappresenta veicoli più datati o con consumi maggiori. In questo modo, la popolazione simulata riflette la varietà di un vero parco auto urbano.
+\newpage
+\begin{remark}
+È importante notare che l'insieme $\Gamma_i$ (i task considerati) non è una caratteristica statica dell'utente, ma viene \textbf{determinato dinamicamente}. Un tassista a Roma Nord non considererà mai un task a Roma Sud a causa della distanza proibitiva. Pertanto, $\Gamma_i$ viene costruito calcolando la prossimità geografica tra l'utente e i task disponibili: come vedremo nel dettaglio nella Sezione 5.7 (Capitolo 5), introduciamo un vincolo di \textbf{raggio di copertura} $r$ che filtra automaticamente i task troppo lontani, rendendo il problema computazionalmente trattabile e realisticamente sensato.
+\end{remark}
+\section{Modello di Costo e Strategie di Bidding}
+\label{sec:modello-costo}
+
+Per descrivere il comportamento degli agenti è necessario specificare come essi stimano il costo per l'esecuzione di un insieme di task e come trasformano tale informazione in un'offerta (\textit{bid}) da inviare alla piattaforma. In questa sezione vengono quindi introdotti il modello di costo, le ipotesi sulle strategie di bidding in Fase~1 e la corrispondente funzione di utilità.
+
+\subsection{Funzione di Costo Privato (\texorpdfstring{$c_i$}{ci})}
+\label{subsec:funzione-costo}
+
+Si assume che ogni utente $i$ conosca il proprio costo operativo e che il costo complessivo per completare un insieme di task $\Gamma_i$ dipenda in modo lineare dalla distanza che deve percorrere per servirli.
+
+\begin{definition}[Funzione di Costo Privato]
+Il costo $c_i$ sostenuto dall'utente $u_i$ per servire l'insieme di task $\Gamma_i$ è definito come:
+\begin{equation}
+c_i(\Gamma_i) = \kappa_i \cdot D_i(\Gamma_i)
+\end{equation}
+dove $D_i(\Gamma_i)$ è la distanza totale di servizio stimata.
+\end{definition}
+
+Per stimare $D_i(\Gamma_i)$ si adotta, in questa prima fase, un modello di routing volutamente semplice, indicato come \textbf{Star Routing}. L'idea è che l'utente parta dalla propria posizione base $\text{pos}_i$ e raggiunga ogni task in $\Gamma_i$ singolarmente, senza ottimizzare l'ordine di visita.
+\newpage
+\begin{definition}[Distanza di Servizio con Correzione Urbana]
+La distanza totale $D_i(\Gamma_i)$ è calcolata come somma delle distanze geodetiche tra la posizione dell'utente e ciascun task, corrette da un fattore che tiene conto della tortuosità della rete stradale urbana:
+\begin{equation}
+D_i(\Gamma_i) = \eta_{\text{urban}} \cdot \sum_{\tau_j \in \Gamma_i} d_H(\text{pos}_i, \text{pos}_j)
+\end{equation}
+dove:
+\begin{itemize}
+    \item $d_H(\cdot, \cdot)$ è la \textbf{distanza geodetica di Haversine}, che approssima la distanza ortodromica tra due punti su una sfera (raggio della Terra $R = 6{,}371$ km):
+    \begin{equation}
+    a = \sin^2\left(\frac{\Delta\phi}{2}\right) + \cos(\phi_i)\cos(\phi_j)\sin^2\left(\frac{\Delta\lambda}{2}\right)
+    \end{equation}
+    \begin{equation}
+    d_H = 2R \cdot \text{atan2}(\sqrt{a}, \sqrt{1-a})
+    \end{equation}
+    \item $\eta_{\text{urban}}$ è il \textbf{fattore di correzione urbano}. È introdotto per tener conto del fatto che, in città, la distanza effettivamente percorsa lungo la rete stradale è in media superiore a quella geodetica a causa della presenza di incroci, sensi unici, vincoli di direzione e irregolarità del tessuto urbano. Nel caso di Roma, città con un centro storico particolarmente complesso, si è scelto un valore conservativo $\eta_\text{urban} = 1.30$, in linea con i range tipici (1.2--1.4) riportati per reti stradali europee con topologia irregolare~\cite{barthelemy2011spatial}.
+\end{itemize}
+\newpage
+\end{definition}
+La Figura~\ref{fig:star-vs-tsp} mostra come il modello star differisce da un routing ottimizzato di tipo TSP:
+\begin{itemize}
+    \item \textbf{Modello Star (A)}: l'utente parte dalla posizione base (deposito, quadrato rosso) per raggiungere ogni task (punti blu) individualmente, effettuando viaggi separati di andata e ritorno. Questo approccio sovrastima significativamente la distanza totale (13.41~u nell'esempio), rappresentando un limite superiore conservativo (\textit{upper bound}) che preserva la proprietà di Individual Rationality anche in presenza di routing subottimale nella pratica.
+    
+    \item \textbf{Routing TSP (B)}: l'utente ottimizza il percorso visitando tutti i task in un unico tour continuo, minimizzando la distanza totale (2.68~u nell'esempio). Questo rappresenta lo scenario reale in cui un conducente razionale pianifica un percorso multi-stop efficiente, ottenendo costi operativi significativamente inferiori rispetto alla stima conservativa del modello star.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./Immagini/figura_3_1_confronto_routing_star_vs_tsp.jpg}
+    \caption[Confronto tra il modello Star Routing e TSP]{Confronto tra il modello Star Routing adottato (A) e un routing ottimale TSP (B). Il modello star sovrastima il costo reale di un fattore superiore a 4 in questo scenario, garantendo robustezza nelle stime dei costi.}
+    \label{fig:star-vs-tsp}
+\end{figure}
+\paragraph{Nota sulle limitazioni dello Star Routing.}
+Il modello di star routing è, per costruzione, una \textbf{semplificazione conservativa} rispetto a un routing ottimale basato sul problema del commesso viaggiatore (Traveling Salesman Problem, TSP). In letteratura è noto che, per piccoli insiemi di punti (ad esempio cluster di 3--8 nodi), uno schema di tipo ``stella'' può sovrastimare la lunghezza del tour ottimale di un fattore tipicamente compreso tra 2 e 4, a seconda della disposizione spaziale dei task. Questa scelta va quindi letta come una forma di cautela: si preferisce assumere costi leggermente più alti rispetto al minimo teorico, anziché rischiare di sottostimarli.
+\begin{remark}
+L'adozione dello star routing ha alcune conseguenze dirette sul comportamento del meccanismo:
+\begin{enumerate}
+    \item \textbf{Bid più alti}: i costi stimati sono maggiori, quindi le offerte risultano più elevate e la selezione dei vincitori tende a essere più prudente (a parità di budget, il numero di vincitori è in genere inferiore rispetto a uno scenario con routing ottimale).
+    
+    \item \textbf{Pagamenti critici non sottostimati}: i pagamenti calcolati a partire da questi costi rimangono su un ordine di grandezza tale da garantire la proprietà di \textit{Individual Rationality} anche se, nella realtà, l'utente scegliesse un percorso non ottimale.
+    
+    \item \textbf{Efficienza leggermente ridotta, robustezza aumentata}: si sacrifica una parte dell'efficienza allocativa potenziale per ottenere un comportamento più robusto e ``fail-safe'' dal punto di vista economico.
+\end{enumerate}
+\end{remark}
+
+\paragraph{Motivazione della scelta.}
+Nella Fase~1 si è adottato esclusivamente il modello di star routing per tutti gli utenti, indipendentemente dal loro livello di razionalità. Questa scelta è motivata dalla necessità di isolare le proprietà teoriche del meccanismo in uno scenario controllato: utilizzando un'unica metrica di costo conservativa, si garantisce che le bid e i pagamenti rispettino le proprietà di Individual Rationality e Incentive Compatibility, senza introdurre variabilità dovuta a eterogeneità comportamentale nel routing.
+
+Nelle Fasi~2 e~3, il modello è stato esteso per incorporare una maggiore fedeltà comportamentale: il metodo di routing adottato da ciascun utente dipende dal suo livello di razionalità. Gli utenti altamente razionali tendono a ottimizzare i percorsi multi-stop (riducendo i costi operativi), mentre gli utenti con razionalità limitata adottano strategie meno efficienti, dal semplice star routing fino a percorsi sostanzialmente casuali. Questa eterogeneità consente di verificare come la bounded rationality influenzi non solo le decisioni di partecipazione all'asta, ma anche i costi effettivi sostenuti dagli utenti nella fase operativa.
+
+\newpage
+\subsection{Strategia di Bidding in Regime di Razionalità Perfetta}
+\label{subsec:bidding-strategy}
+
+Nella Fase~1, lo studio si fonda sull'assunzione di \textbf{Razionalità Perfetta}. Gli agenti sono modellati come decisori razionali che conoscono esattamente la propria funzione di costo, comprendono perfettamente le regole del meccanismo d'asta IMCU e possiedono capacità computazionali sufficienti per calcolare la strategia che massimizza la loro utilità attesa~\cite{simon1955behavioral}.
+
+L'obiettivo teorico del meccanismo è garantire l'incentivo alla veridicità. In Teoria dei Giochi Algoritmica, questa proprietà è formalizzata come segue:
+
+\begin{definition}[Truthfulness o Incentive Compatibility]
+Un meccanismo di incentivazione si definisce \textbf{Truthful} (o \textit{Incentive-Compatible}) se, per ogni utente $u_i$, la strategia di dichiarare il proprio costo reale $c_i$ massimizza l'utilità attesa, indipendentemente dalle strategie adottate dagli altri partecipanti $\mathbf{b}_{-i}$. In altre parole, la dichiarazione veritiera $b_i = c_i$ costituisce una \textbf{strategia dominante}.
+\end{definition}
+Per dimostrare che l'algoritmo IMCU soddisfa questa proprietà, facciamo riferimento alla celebre caratterizzazione fornita da Myerson per i meccanismi a parametro singolo.
+
+\begin{theorem}[Caratterizzazione di Myerson~\cite{myerson1981optimal}]
+\label{thm:myerson}
+Un meccanismo d'asta a offerta inversa è truthful se e solo se soddisfa le seguenti due condizioni necessarie e sufficienti:
+\begin{enumerate}
+    \item \textbf{Monotonicità della regola di selezione:} Se un utente $u_i$ viene selezionato come vincitore sottomettendo un'offerta $b_i$, deve continuare a essere selezionato sottomettendo una qualsiasi offerta $b'_i < b_i$ (a parità di altre condizioni).
+    \item \textbf{Pagamento Critico:} Il pagamento corrisposto a ciascun vincitore è indipendente dalla sua offerta ed è pari al valore critico, ovvero l'estremo superiore delle offerte che l'utente avrebbe potuto sottomettere pur continuando a vincere.
+\end{enumerate}
+\end{theorem}
+
+Sulla base di questo fondamento teorico, possiamo enunciare e dimostrare il teorema fondamentale relativo alla validità del meccanismo adottato.
+\newpage
+\begin{theorem}[Veridicità del Meccanismo IMCU -- da Yang et al.~\cite{yang2015incentive}]
+\label{thm:veridicita-imcu}
+Il meccanismo d'asta IMCU è \textbf{truthful}. Pertanto, per qualsiasi utente $i$ con costo privato $c_i(\Gamma_i)$, la strategia $b_i = c_i(\Gamma_i)$ è una strategia dominante.
+\end{theorem}
+
+\begin{proof}
+Sfruttando il Teorema~\ref{thm:myerson}, la dimostrazione si riduce alla verifica delle due condizioni di Myerson all'interno dell'algoritmo IMCU.
+\begin{itemize}
+    \item \textbf{Analisi della Monotonicità.} La fase di selezione dei vincitori nell'algoritmo IMCU segue un approccio \textit{greedy} basato sul valore marginale. Gli utenti vengono ordinati e selezionati iterativamente in base al contributo marginale netto $v_i(\mathcal{S}) - b_i$.
+    Supponiamo che l'utente $i$ vinca con un'offerta $b_i$. Se l'utente riduce la sua offerta a $b'_i < b_i$, la differenza $v_i(\mathcal{S}) - b'_i$ aumenta. Questo miglioramento (o invarianza) nel ranking garantisce che l'utente venga considerato dall'algoritmo greedy in una fase precedente o uguale rispetto al caso con $b_i$, assicurando la sua inclusione nell'insieme dei vincitori $S^*$. La regola di selezione è dunque monotona~\cite{yang2015incentive}.
+    
+    \item \textbf{Analisi del Pagamento Critico.} La fase di determinazione dei pagamenti dell'IMCU è esplicitamente costruita per calcolare la soglia critica. Il pagamento $p_i$ non è funzione diretta del bid $b_i$ del vincitore, ma è determinato dalle offerte dei concorrenti esclusi ("i perdenti") e dai valori marginali del sistema. Formalmente, il pagamento è calcolato come:
+    \begin{equation}
+        p_i = \max \{ b'_i : i \in S^*(b'_i, \mathbf{b}_{-i}) \}
+    \end{equation}
+    
+    \item \textbf{Conclusione.} Poiché entrambe le condizioni di Myerson sono soddisfatte per costruzione, qualsiasi deviazione dalla strategia veritiera (sia essa \textit{overbidding} o \textit{underbidding}) porta a un'utilità attesa debolmente inferiore o nulla. Di conseguenza, $b_i = c_i$ è una \textbf{strategia debolmente dominante} e, in assenza di casi patologici legati al tie-breaking, risulta essere una strategia dominante stretta~\cite{krishna2009auction}.
+\end{itemize}
+\end{proof}
+\newpage
+\begin{corollary}[Comportamento di Bidding Assunto in Fase~1]
+\label{cor:bidding-fase1}
+\textit{Data l'assunzione di razionalità perfetta e il Teorema~\ref{thm:veridicita-imcu}, nella Fase~1 si postula che ogni utente $u_i$ sottometta alla piattaforma un'offerta esattamente pari al proprio costo privato:}
+\begin{equation}
+b_i(\Gamma_i) = c_i(\Gamma_i)
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Per ipotesi, un agente perfettamente razionale:
+\begin{enumerate}
+    \item conosce la propria funzione di utilità $u_i(b_i, \mathbf{b}_{-i})$;
+    \item conosce le regole del meccanismo e la proprietà di veridicità dimostrata nel Teorema~\ref{thm:veridicita-imcu};
+    \item possiede capacità di calcolo illimitata per individuare la strategia ottima.
+\end{enumerate}
+
+Poiché $b_i = c_i$ è una strategia dominante, essa rappresenta la \textit{best response} dell'agente indipendentemente dalle azioni altrui. Un agente razionale non ha alcun incentivo a deviare da tale strategia.
+
+Formalmente, indicando con $U_i(b_i \,|\, \mathbf{b}_{-i})$ l'utilità attesa dell'utente $i$, dal teorema precedente discende che:
+\begin{equation}
+U_i(c_i \,|\, \mathbf{b}_{-i}) \geq U_i(b'_i \,|\, \mathbf{b}_{-i}) \quad \forall b'_i \neq c_i, \, \forall \mathbf{b}_{-i}
+\end{equation}
+
+Questa uguaglianza costituisce la \textbf{Ground Truth} comportamentale della Fase~1 (come discusso nel dettaglio nel Capitolo~5): la simulazione non serve a ``verificare'' empiricamente che gli utenti \textit{scelgano} di essere veritieri (proprietà già garantita a priori dalla teoria), ma piuttosto a simulare numericamente l'\textbf{Equilibrio di Nash} del gioco, assumendo che l'intera popolazione di agenti abbia già convergito verso il comportamento ottimale.
+\end{proof}
+\newpage
+\subsection{Funzione di Utilità dell'Agente}
+\label{subsec:utility-function}
+
+Definito il modello di costo e la strategia di bidding, è necessario definire come quantificare il \textit{guadagno netto} che un agente ottiene dalla partecipazione all'asta IMCU.
+
+\begin{definition}[Utilità dell'Utente]
+L'utilità $u_i$ dell'utente $u_i$ è modellata attraverso una funzione quasi-lineare standard:
+\begin{equation}
+u_i = \begin{cases} 
+p_i - c_i(\Gamma_i) & \text{se } u_i \in S^* \text{ (vincitore)} \\
+0 & \text{se } u_i \notin S^* \text{ (non vincitore)}
+\end{cases}
+\end{equation}
+dove $p_i$ è il pagamento trasferito dalla piattaforma e $S^*$ è l'insieme dei vincitori selezionati.
+\end{definition}
+
+\begin{assumption}[Utilità di Riserva Nulla]
+Si assume che l'utilità di riserva di ogni utente, ossia il payoff associato all'opzione di non partecipare all'asta, sia normalizzata a zero. Questa ipotesi è comune nei meccanismi di crowdsensing~\cite{yang2015incentive} e riflette il fatto che gli utenti non sostengono costi operativi se non vengono ingaggiati.
+\end{assumption}
+Affinché il meccanismo sia sostenibile in un contesto realistico, è necessario garantire la proprietà di \textbf{Razionalità Individuale} (Individual Rationality, IR): nessun utente razionale deve subire una perdita (utilità negativa) partecipando al meccanismo.
+
+\begin{proposition}[Razionalità Individuale del Meccanismo IMCU]
+\label{prop:individual-rationality}
+\textit{Un meccanismo d'asta è individualmente razionale (IR) se l'utilità ex-post di ogni partecipante è non negativa, ovvero $u_i \geq 0$ per ogni utente $i$. Il meccanismo IMCU soddisfa questa proprietà per costruzione.}
+\end{proposition}
+\begin{proof}
+È necessario verificare la condizione per i due possibili stati dell'utente: vincitore o non vincitore.
+\begin{itemize}
+    \item \textbf{Caso 1: Utente non selezionato ($i \notin S^*$).} Dalla definizione della funzione di utilità, se l'utente non vince, non sostiene costi e non riceve pagamenti, quindi:
+    \begin{equation}
+        u_i = 0 \geq 0
+    \end{equation}
+    \newpage
+    \item \textbf{Caso 2: Utente selezionato ($i \in S^*$).} Se l'utente risulta vincitore, la sua utilità è data da $u_i = p_i - c_i$.
+    Dalla proprietà del \textit{pagamento critico} dimostrata nel Teorema~\ref{thm:veridicita-imcu} (in virtù del Teorema di Myerson), sappiamo che il pagamento ricevuto è sempre maggiore o uguale al bid dichiarato per vincere:
+    \begin{equation}
+        p_i \geq b_i
+    \end{equation}
+    Nella Fase~1, in regime di razionalità perfetta, dal Corollario~\ref{cor:bidding-fase1} sappiamo che l'utente dichiara il vero costo ($b_i = c_i$). Sostituendo questa uguaglianza:
+    \begin{equation}
+        p_i \geq c_i \implies p_i - c_i \geq 0
+    \end{equation}
+    Pertanto, $u_i \geq 0$ anche per ogni vincitore.
+
+    \item \textbf{Conclusione.} In tutti gli scenari possibili, l'utilità dell'agente è non negativa. Il meccanismo IMCU rispetta rigorosamente la proprietà di \textbf{Individual Rationality}, assicurando che la partecipazione non comporti mai un rischio economico per l'utente~\cite{yang2015incentive,krishna2009auction}.
+\end{itemize}
+\end{proof}
+\begin{corollary}[Condizione di Partecipazione Volontaria]
+\textit{Data la proprietà di Individual Rationality (Proposizione~\ref{prop:individual-rationality}) e l'ipotesi di utilità di riserva nulla (Assunzione~3.1), ogni utente razionale ha un incentivo debole (o nullo nel caso limite) a partecipare attivamente all'asta IMCU.}
+\end{corollary}
+
+\begin{proof}
+Siano $U_i^{\text{partecipa}}$ l'utilità attesa derivante dalla partecipazione e $U_i^{\text{non partecipa}} = 0$ l'utilità derivante dall'astensione.
+Dalla Proposizione~\ref{prop:individual-rationality}, abbiamo dimostrato che il meccanismo garantisce sempre un risultato non negativo:
+\begin{equation}
+    U_i^{\text{partecipa}} \geq 0
+\end{equation}
+Confrontando le due opzioni, appare evidente che:
+\begin{equation}
+    U_i^{\text{partecipa}} \geq U_i^{\text{non partecipa}}
+\end{equation}
+\newpage
+In termini pratici, ciò significa che per un agente razionale la partecipazione è un'operazione a \textbf{rischio zero}. Non esistono disincentivi economici:
+\begin{itemize}
+    \item Nel caso peggiore (l'utente perde l'asta), il suo bilancio rimane invariato ($u_i = 0$), esattamente come se avesse deciso di ignorare il sistema;
+    \item Nel caso favorevole (l'utente vince), ottiene un profitto netto garantito ($p_i > c_i$).
+\end{itemize}
+\end{proof}

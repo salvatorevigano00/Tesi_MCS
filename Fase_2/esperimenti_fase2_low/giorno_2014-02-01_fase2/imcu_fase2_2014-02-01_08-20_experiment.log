@@ -1,0 +1,259 @@
+2025-12-05 23:13:35 | INFO     | ================================================================================
+2025-12-05 23:13:35 | INFO     | Avvio esperimento IMCU Fase 2 (coorte persistente): imcu_fase2_2014-02-01_08-20
+2025-12-05 23:13:35 | INFO     | ================================================================================
+2025-12-05 23:13:35 | INFO     | Avvio simulazione: 2025-12-05T23:13:35.374534
+2025-12-05 23:13:35 | INFO     | Configurazione verificata con successo.
+2025-12-05 23:13:35 | INFO     | Seed casuale globale impostato: 42
+2025-12-05 23:13:35 | INFO     | Caricamento DataManagerRational da: /Users/salvatorevigano/Documents/MCS_Thesis/dati/taxi_february.txt
+2025-12-05 23:13:35 | INFO     | Partizioni dati già presenti, fase di parsing saltata.
+2025-12-05 23:13:35 | INFO     | ================================================================================
+2025-12-05 23:13:35 | INFO     | Creazione coorte persistente di utenti
+2025-12-05 23:13:35 | INFO     | Finestra temporale: H08 - H20
+2025-12-05 23:13:35 | INFO     | Dimensione coorte desiderata: 316 utenti
+2025-12-05 23:13:35 | INFO     | ================================================================================
+2025-12-05 23:13:35 | INFO     | Coorte persistente creata: 138 utenti attivi.
+2025-12-05 23:13:35 | INFO     | Distribuzione dei profili nella coorte:
+2025-12-05 23:13:35 | INFO     |   Quasi-Rational                     0 (  0.0%)
+2025-12-05 23:13:35 | INFO     |   Bounded Honest                     0 (  0.0%)
+2025-12-05 23:13:35 | INFO     |   Bounded Moderate                  72 ( 52.2%)
+2025-12-05 23:13:35 | INFO     |   Bounded Opportunistic             66 ( 47.8%)
+2025-12-05 23:13:35 | INFO     | ================================================================================
+2025-12-05 23:13:35 | INFO     | Inizio loop orario su 12 ore con coorte persistente...
+2025-12-05 23:13:35 | INFO     | ================================================================================
+2025-12-05 23:13:35 | INFO     | [2014-02-01 H08] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:35 | INFO     | 
+======================================================================
+2025-12-05 23:13:35 | INFO     | [STEP 1] Generazione task per l'ora H08
+2025-12-05 23:13:35 | INFO     |   Task generati: 475
+2025-12-05 23:13:35 | INFO     |   Valore task: min=2.71, max=10.91, media=4.53
+2025-12-05 23:13:35 | INFO     |   Valore totale task disponibili: 2153.46 euro
+2025-12-05 23:13:35 | INFO     | ======================================================================
+
+2025-12-05 23:13:35 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 133 su 138
+2025-12-05 23:13:36 | INFO     | [STEP 3] Risultati asta (ex-ante) H08
+2025-12-05 23:13:36 | INFO     |   Vincitori: 50
+2025-12-05 23:13:36 | INFO     |   Valore meccanismo v_mech: 1088.47 euro
+2025-12-05 23:13:36 | INFO     |   Pagamenti totali sumP: 717.05 euro
+2025-12-05 23:13:36 | INFO     |   Utilità piattaforma u0_mech: 371.42 euro
+2025-12-05 23:13:36 | INFO     | [STEP 4] Analisi azzardo morale H08
+2025-12-05 23:13:36 | INFO     |   Defezioni totali (reali): 6 su 50 vincitori
+2025-12-05 23:13:36 | INFO     |   Defezioni rilevate (sanzionate): 3 su 50 vincitori
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H08] Valore effettivo v_eff = 965.26 euro, completamenti reali = 44/50
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H09] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:36 | INFO     | 
+======================================================================
+2025-12-05 23:13:36 | INFO     | [STEP 1] Generazione task per l'ora H09
+2025-12-05 23:13:36 | INFO     |   Task generati: 406
+2025-12-05 23:13:36 | INFO     |   Valore task: min=2.71, max=10.76, media=4.87
+2025-12-05 23:13:36 | INFO     |   Valore totale task disponibili: 1978.74 euro
+2025-12-05 23:13:36 | INFO     | ======================================================================
+
+2025-12-05 23:13:36 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 133 su 138
+2025-12-05 23:13:36 | INFO     | [STEP 3] Risultati asta (ex-ante) H09
+2025-12-05 23:13:36 | INFO     |   Vincitori: 49
+2025-12-05 23:13:36 | INFO     |   Valore meccanismo v_mech: 1032.02 euro
+2025-12-05 23:13:36 | INFO     |   Pagamenti totali sumP: 585.34 euro
+2025-12-05 23:13:36 | INFO     |   Utilità piattaforma u0_mech: 446.68 euro
+2025-12-05 23:13:36 | INFO     | [STEP 4] Analisi azzardo morale H09
+2025-12-05 23:13:36 | INFO     |   Defezioni totali (reali): 7 su 49 vincitori
+2025-12-05 23:13:36 | INFO     |   Defezioni rilevate (sanzionate): 3 su 49 vincitori
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H09] Valore effettivo v_eff = 919.27 euro, completamenti reali = 42/49
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H10] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:36 | INFO     | 
+======================================================================
+2025-12-05 23:13:36 | INFO     | [STEP 1] Generazione task per l'ora H10
+2025-12-05 23:13:36 | INFO     |   Task generati: 395
+2025-12-05 23:13:36 | INFO     |   Valore task: min=2.71, max=10.86, media=4.99
+2025-12-05 23:13:36 | INFO     |   Valore totale task disponibili: 1971.06 euro
+2025-12-05 23:13:36 | INFO     | ======================================================================
+
+2025-12-05 23:13:36 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 126 su 138
+2025-12-05 23:13:36 | INFO     | [STEP 3] Risultati asta (ex-ante) H10
+2025-12-05 23:13:36 | INFO     |   Vincitori: 45
+2025-12-05 23:13:36 | INFO     |   Valore meccanismo v_mech: 999.89 euro
+2025-12-05 23:13:36 | INFO     |   Pagamenti totali sumP: 646.66 euro
+2025-12-05 23:13:36 | INFO     |   Utilità piattaforma u0_mech: 353.24 euro
+2025-12-05 23:13:36 | INFO     | [STEP 4] Analisi azzardo morale H10
+2025-12-05 23:13:36 | INFO     |   Defezioni totali (reali): 4 su 45 vincitori
+2025-12-05 23:13:36 | INFO     |   Defezioni rilevate (sanzionate): 3 su 45 vincitori
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H10] Valore effettivo v_eff = 939.20 euro, completamenti reali = 41/45
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H11] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:36 | INFO     | 
+======================================================================
+2025-12-05 23:13:36 | INFO     | [STEP 1] Generazione task per l'ora H11
+2025-12-05 23:13:36 | INFO     |   Task generati: 391
+2025-12-05 23:13:36 | INFO     |   Valore task: min=2.71, max=10.60, media=4.97
+2025-12-05 23:13:36 | INFO     |   Valore totale task disponibili: 1943.66 euro
+2025-12-05 23:13:36 | INFO     | ======================================================================
+
+2025-12-05 23:13:36 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 127 su 138
+2025-12-05 23:13:36 | INFO     | [STEP 3] Risultati asta (ex-ante) H11
+2025-12-05 23:13:36 | INFO     |   Vincitori: 47
+2025-12-05 23:13:36 | INFO     |   Valore meccanismo v_mech: 1016.94 euro
+2025-12-05 23:13:36 | INFO     |   Pagamenti totali sumP: 628.45 euro
+2025-12-05 23:13:36 | INFO     |   Utilità piattaforma u0_mech: 388.49 euro
+2025-12-05 23:13:36 | INFO     | [STEP 4] Analisi azzardo morale H11
+2025-12-05 23:13:36 | INFO     |   Defezioni totali (reali): 3 su 47 vincitori
+2025-12-05 23:13:36 | INFO     |   Defezioni rilevate (sanzionate): 1 su 47 vincitori
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H11] Valore effettivo v_eff = 965.76 euro, completamenti reali = 44/47
+2025-12-05 23:13:36 | INFO     | [2014-02-01 H12] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:36 | INFO     | 
+======================================================================
+2025-12-05 23:13:36 | INFO     | [STEP 1] Generazione task per l'ora H12
+2025-12-05 23:13:36 | INFO     |   Task generati: 463
+2025-12-05 23:13:36 | INFO     |   Valore task: min=2.71, max=10.58, media=4.73
+2025-12-05 23:13:36 | INFO     |   Valore totale task disponibili: 2191.79 euro
+2025-12-05 23:13:36 | INFO     | ======================================================================
+
+2025-12-05 23:13:37 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 131 su 138
+2025-12-05 23:13:37 | INFO     | [STEP 3] Risultati asta (ex-ante) H12
+2025-12-05 23:13:37 | INFO     |   Vincitori: 53
+2025-12-05 23:13:37 | INFO     |   Valore meccanismo v_mech: 1100.70 euro
+2025-12-05 23:13:37 | INFO     |   Pagamenti totali sumP: 707.40 euro
+2025-12-05 23:13:37 | INFO     |   Utilità piattaforma u0_mech: 393.30 euro
+2025-12-05 23:13:37 | INFO     | [STEP 4] Analisi azzardo morale H12
+2025-12-05 23:13:37 | INFO     |   Defezioni totali (reali): 9 su 53 vincitori
+2025-12-05 23:13:37 | INFO     |   Defezioni rilevate (sanzionate): 4 su 53 vincitori
+2025-12-05 23:13:37 | INFO     | [2014-02-01 H12] Valore effettivo v_eff = 941.88 euro, completamenti reali = 44/53
+2025-12-05 23:13:37 | INFO     | [2014-02-01 H13] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:37 | INFO     | 
+======================================================================
+2025-12-05 23:13:37 | INFO     | [STEP 1] Generazione task per l'ora H13
+2025-12-05 23:13:37 | INFO     |   Task generati: 735
+2025-12-05 23:13:37 | INFO     |   Valore task: min=2.71, max=10.38, media=4.47
+2025-12-05 23:13:37 | INFO     |   Valore totale task disponibili: 3286.42 euro
+2025-12-05 23:13:37 | INFO     | ======================================================================
+
+2025-12-05 23:13:37 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 135 su 138
+2025-12-05 23:13:37 | INFO     | [STEP 3] Risultati asta (ex-ante) H13
+2025-12-05 23:13:37 | INFO     |   Vincitori: 55
+2025-12-05 23:13:37 | INFO     |   Valore meccanismo v_mech: 1210.90 euro
+2025-12-05 23:13:37 | INFO     |   Pagamenti totali sumP: 823.03 euro
+2025-12-05 23:13:37 | INFO     |   Utilità piattaforma u0_mech: 387.87 euro
+2025-12-05 23:13:37 | INFO     | [STEP 4] Analisi azzardo morale H13
+2025-12-05 23:13:37 | INFO     |   Defezioni totali (reali): 5 su 55 vincitori
+2025-12-05 23:13:37 | INFO     |   Defezioni rilevate (sanzionate): 3 su 55 vincitori
+2025-12-05 23:13:37 | INFO     | [2014-02-01 H13] Valore effettivo v_eff = 1137.18 euro, completamenti reali = 50/55
+2025-12-05 23:13:37 | INFO     | [2014-02-01 H14] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:37 | INFO     | 
+======================================================================
+2025-12-05 23:13:37 | INFO     | [STEP 1] Generazione task per l'ora H14
+2025-12-05 23:13:37 | INFO     |   Task generati: 537
+2025-12-05 23:13:37 | INFO     |   Valore task: min=2.71, max=10.10, media=4.58
+2025-12-05 23:13:37 | INFO     |   Valore totale task disponibili: 2460.13 euro
+2025-12-05 23:13:37 | INFO     | ======================================================================
+
+2025-12-05 23:13:37 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 136 su 138
+2025-12-05 23:13:38 | INFO     | [STEP 3] Risultati asta (ex-ante) H14
+2025-12-05 23:13:38 | INFO     |   Vincitori: 54
+2025-12-05 23:13:38 | INFO     |   Valore meccanismo v_mech: 1186.16 euro
+2025-12-05 23:13:38 | INFO     |   Pagamenti totali sumP: 756.87 euro
+2025-12-05 23:13:38 | INFO     |   Utilità piattaforma u0_mech: 429.29 euro
+2025-12-05 23:13:38 | INFO     | [STEP 4] Analisi azzardo morale H14
+2025-12-05 23:13:38 | INFO     |   Defezioni totali (reali): 10 su 54 vincitori
+2025-12-05 23:13:38 | INFO     |   Defezioni rilevate (sanzionate): 4 su 54 vincitori
+2025-12-05 23:13:38 | INFO     | [2014-02-01 H14] Valore effettivo v_eff = 999.12 euro, completamenti reali = 44/54
+2025-12-05 23:13:38 | INFO     | [2014-02-01 H15] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:38 | INFO     | 
+======================================================================
+2025-12-05 23:13:38 | INFO     | [STEP 1] Generazione task per l'ora H15
+2025-12-05 23:13:38 | INFO     |   Task generati: 460
+2025-12-05 23:13:38 | INFO     |   Valore task: min=2.71, max=9.98, media=4.60
+2025-12-05 23:13:38 | INFO     |   Valore totale task disponibili: 2118.17 euro
+2025-12-05 23:13:38 | INFO     | ======================================================================
+
+2025-12-05 23:13:38 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 133 su 138
+2025-12-05 23:13:38 | INFO     | [STEP 3] Risultati asta (ex-ante) H15
+2025-12-05 23:13:38 | INFO     |   Vincitori: 54
+2025-12-05 23:13:38 | INFO     |   Valore meccanismo v_mech: 1106.76 euro
+2025-12-05 23:13:38 | INFO     |   Pagamenti totali sumP: 698.97 euro
+2025-12-05 23:13:38 | INFO     |   Utilità piattaforma u0_mech: 407.79 euro
+2025-12-05 23:13:38 | INFO     | [STEP 4] Analisi azzardo morale H15
+2025-12-05 23:13:38 | INFO     |   Defezioni totali (reali): 12 su 54 vincitori
+2025-12-05 23:13:38 | INFO     |   Defezioni rilevate (sanzionate): 4 su 54 vincitori
+2025-12-05 23:13:38 | INFO     | [2014-02-01 H15] Valore effettivo v_eff = 910.26 euro, completamenti reali = 42/54
+2025-12-05 23:13:38 | INFO     | [2014-02-01 H16] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:38 | INFO     | 
+======================================================================
+2025-12-05 23:13:38 | INFO     | [STEP 1] Generazione task per l'ora H16
+2025-12-05 23:13:38 | INFO     |   Task generati: 584
+2025-12-05 23:13:38 | INFO     |   Valore task: min=2.71, max=10.53, media=4.57
+2025-12-05 23:13:38 | INFO     |   Valore totale task disponibili: 2671.24 euro
+2025-12-05 23:13:38 | INFO     | ======================================================================
+
+2025-12-05 23:13:38 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 135 su 138
+2025-12-05 23:13:38 | INFO     | [STEP 3] Risultati asta (ex-ante) H16
+2025-12-05 23:13:38 | INFO     |   Vincitori: 52
+2025-12-05 23:13:38 | INFO     |   Valore meccanismo v_mech: 1068.83 euro
+2025-12-05 23:13:38 | INFO     |   Pagamenti totali sumP: 686.20 euro
+2025-12-05 23:13:38 | INFO     |   Utilità piattaforma u0_mech: 382.63 euro
+2025-12-05 23:13:38 | INFO     | [STEP 4] Analisi azzardo morale H16
+2025-12-05 23:13:38 | INFO     |   Defezioni totali (reali): 5 su 52 vincitori
+2025-12-05 23:13:38 | INFO     |   Defezioni rilevate (sanzionate): 3 su 52 vincitori
+2025-12-05 23:13:38 | INFO     | [2014-02-01 H16] Valore effettivo v_eff = 1003.63 euro, completamenti reali = 47/52
+2025-12-05 23:13:38 | INFO     | [2014-02-01 H17] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:38 | INFO     | 
+======================================================================
+2025-12-05 23:13:38 | INFO     | [STEP 1] Generazione task per l'ora H17
+2025-12-05 23:13:38 | INFO     |   Task generati: 395
+2025-12-05 23:13:38 | INFO     |   Valore task: min=2.71, max=11.09, media=4.97
+2025-12-05 23:13:38 | INFO     |   Valore totale task disponibili: 1964.55 euro
+2025-12-05 23:13:38 | INFO     | ======================================================================
+
+2025-12-05 23:13:38 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 130 su 138
+2025-12-05 23:13:39 | INFO     | [STEP 3] Risultati asta (ex-ante) H17
+2025-12-05 23:13:39 | INFO     |   Vincitori: 49
+2025-12-05 23:13:39 | INFO     |   Valore meccanismo v_mech: 1061.91 euro
+2025-12-05 23:13:39 | INFO     |   Pagamenti totali sumP: 668.93 euro
+2025-12-05 23:13:39 | INFO     |   Utilità piattaforma u0_mech: 392.98 euro
+2025-12-05 23:13:39 | INFO     | [STEP 4] Analisi azzardo morale H17
+2025-12-05 23:13:39 | INFO     |   Defezioni totali (reali): 5 su 49 vincitori
+2025-12-05 23:13:39 | INFO     |   Defezioni rilevate (sanzionate): 3 su 49 vincitori
+2025-12-05 23:13:39 | INFO     | [2014-02-01 H17] Valore effettivo v_eff = 960.46 euro, completamenti reali = 44/49
+2025-12-05 23:13:39 | INFO     | [2014-02-01 H18] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:39 | INFO     | 
+======================================================================
+2025-12-05 23:13:39 | INFO     | [STEP 1] Generazione task per l'ora H18
+2025-12-05 23:13:39 | INFO     |   Task generati: 388
+2025-12-05 23:13:39 | INFO     |   Valore task: min=2.71, max=10.75, media=5.14
+2025-12-05 23:13:39 | INFO     |   Valore totale task disponibili: 1992.65 euro
+2025-12-05 23:13:39 | INFO     | ======================================================================
+
+2025-12-05 23:13:39 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 128 su 138
+2025-12-05 23:13:39 | INFO     | [STEP 3] Risultati asta (ex-ante) H18
+2025-12-05 23:13:39 | INFO     |   Vincitori: 48
+2025-12-05 23:13:39 | INFO     |   Valore meccanismo v_mech: 1113.56 euro
+2025-12-05 23:13:39 | INFO     |   Pagamenti totali sumP: 722.37 euro
+2025-12-05 23:13:39 | INFO     |   Utilità piattaforma u0_mech: 391.18 euro
+2025-12-05 23:13:39 | INFO     | [STEP 4] Analisi azzardo morale H18
+2025-12-05 23:13:39 | INFO     |   Defezioni totali (reali): 8 su 48 vincitori
+2025-12-05 23:13:39 | INFO     |   Defezioni rilevate (sanzionate): 5 su 48 vincitori
+2025-12-05 23:13:39 | INFO     | [2014-02-01 H18] Valore effettivo v_eff = 947.68 euro, completamenti reali = 40/48
+2025-12-05 23:13:39 | INFO     | [2014-02-01 H19] Avvio simulazione oraria Fase 2 (coorte persistente)
+2025-12-05 23:13:39 | INFO     | 
+======================================================================
+2025-12-05 23:13:39 | INFO     | [STEP 1] Generazione task per l'ora H19
+2025-12-05 23:13:39 | INFO     |   Task generati: 330
+2025-12-05 23:13:39 | INFO     |   Valore task: min=2.71, max=11.37, media=5.34
+2025-12-05 23:13:39 | INFO     |   Valore totale task disponibili: 1760.75 euro
+2025-12-05 23:13:39 | INFO     | ======================================================================
+
+2025-12-05 23:13:39 | INFO     |   Utenti con almeno un task selezionato (post-FFT): 126 su 138
+2025-12-05 23:13:39 | INFO     | [STEP 3] Risultati asta (ex-ante) H19
+2025-12-05 23:13:39 | INFO     |   Vincitori: 44
+2025-12-05 23:13:39 | INFO     |   Valore meccanismo v_mech: 1055.70 euro
+2025-12-05 23:13:39 | INFO     |   Pagamenti totali sumP: 682.97 euro
+2025-12-05 23:13:39 | INFO     |   Utilità piattaforma u0_mech: 372.73 euro
+2025-12-05 23:13:39 | INFO     | [STEP 4] Analisi azzardo morale H19
+2025-12-05 23:13:39 | INFO     |   Defezioni totali (reali): 8 su 44 vincitori
+2025-12-05 23:13:39 | INFO     |   Defezioni rilevate (sanzionate): 3 su 44 vincitori
+2025-12-05 23:13:39 | INFO     | [2014-02-01 H19] Valore effettivo v_eff = 881.55 euro, completamenti reali = 36/44
+2025-12-05 23:13:39 | INFO     | Simulazioni orarie completate: 12/12 ore valide.
+2025-12-05 23:13:39 | INFO     | Aggregazione risultati e generazione degli output CSV...
+2025-12-05 23:13:39 | INFO     | Generazione delle visualizzazioni per la Fase 2...
+2025-12-05 23:13:40 | INFO     | Grafici Fase 2 generati in: /Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_low/giorno_2014-02-01_fase2/grafici
+2025-12-05 23:13:40 | INFO     | Report riepilogativo Fase 2 salvato in: /Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_low/giorno_2014-02-01_fase2/2014-02-01_REPORT_RIEPILOGATIVO_FASE2.txt
+2025-12-05 23:13:41 | INFO     | ================================================================================
+2025-12-05 23:13:41 | INFO     | Esperimento completato in 5.0 secondi complessivi
+2025-12-05 23:13:41 | INFO     | Output salvati nella directory: /Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_low/giorno_2014-02-01_fase2
+2025-12-05 23:13:41 | INFO     | ================================================================================

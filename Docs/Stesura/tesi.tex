@@ -1,0 +1,112 @@
+\documentclass[a4paper,12pt]{report}
+
+%% --- Codifica, Lingua e Tipografia ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{mathptmx}
+\usepackage{microtype}
+\usepackage{indentfirst}
+\usepackage[autostyle, italian=guillemets]{csquotes}
+
+%% --- Matematica ---
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{latexsym,eurosym}
+
+%% --- Ambienti Matematici ---
+\theoremstyle{definition}
+\newtheorem{definition}{Definizione}[chapter]
+\newtheorem{assumption}{Assunzione}[chapter]
+\newtheorem{example}{Esempio}[chapter]
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[chapter]
+\newtheorem{corollary}{Corollario}[theorem]
+\newtheorem{proposition}{Proposizione}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Nota}[chapter]
+
+%% --- Grafica e Immagini ---
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[italian]{varioref}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc, backgrounds, shadows}
+
+%% --- Tabelle ---
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash\hspace{0pt}}X}
+
+%% --- Layout e Intestazioni ---
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{sectsty}
+\usepackage{fancyhdr}
+
+%% --- Codice Sorgente ---
+\usepackage{listings}
+\usepackage{color}
+
+%% --- Bibliografia ---
+\usepackage[style=numeric,hyperref,
+            firstinits=true,
+            maxbibnames=99,
+            doi=false,isbn=false,
+            defernumbers=true]{biblatex}
+
+%% --- Utility ---
+\usepackage{lipsum}
+
+%% --- PDF e Hyperlink ---
+\usepackage{hyperref}
+
+%% --- Input File di Configurazione ---
+\input{impostazioni-tesi}
+\input{abstract-env}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+
+%% --- Frontespizio ---
+\input{frontespizio}
+
+%% --- Sommario ---
+\begin{myabstract2}
+\input{capitoli/abstract}
+\end{myabstract2}
+
+\hypersetup{pageanchor=true}
+
+%% --- Indice ---
+\restoregeometry
+\pagestyle{fancy}
+\tableofcontents
+
+%% --- Capitoli ---
+\include{capitoli/ch01}
+\include{capitoli/ch02}
+\include{capitoli/ch03}
+
+%% --- Elenco delle Figure ---
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Elenco delle figure}
+\listoffigures
+
+%% --- Bibliografia ---
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\markboth{Bibliografia}{}
+\printbibliography[heading=bibliografia]
+
+\end{document}

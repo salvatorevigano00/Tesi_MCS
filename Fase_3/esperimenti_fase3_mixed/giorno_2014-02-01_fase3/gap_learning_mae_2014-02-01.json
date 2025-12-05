@@ -1,0 +1,31 @@
+{
+  "percorso_file": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_3/esperimenti_fase3_mixed/giorno_2014-02-01_fase3/gap_learning_mae_2014-02-01.png",
+  "tipo_grafico": "learning_convergence",
+  "parametri": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "statistiche_dati": {
+    "mae_iniziale": 0.16197017611668427,
+    "mae_finale": 0.18275143029105517,
+    "riduzione_pct": -12.830296708080361,
+    "config_razionalita_limitata": {
+      "soglia_avviso_offerta_pct": 15.0,
+      "simula_azzardo_morale": true
+    },
+    "git_commit_hash": "27d70fd"
+  },
+  "timestamp_generazione": "2025-12-05T23:18:06.638673"
+}

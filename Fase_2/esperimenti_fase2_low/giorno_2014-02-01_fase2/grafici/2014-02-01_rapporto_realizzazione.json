@@ -1,0 +1,47 @@
+{
+  "percorso_file": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_low/giorno_2014-02-01_fase2/grafici/2014-02-01_rapporto_realizzazione.png",
+  "tipo_grafico": "serie_efficienza",
+  "parametri": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "ore_valide": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "statistiche_dati": {
+    "n_ore_valide": 12,
+    "n_ore_saltate": 0,
+    "efficienza_media": 0.8879725849139241,
+    "efficienza_min": 0.8224554828215269,
+    "efficienza_max": 0.9496657365396741,
+    "config_razionalita_limitata": {
+      "soglia_avviso_offerta_pct": 15.0,
+      "simula_azzardo_morale": true
+    },
+    "git_commit_hash": "27d70fd"
+  },
+  "timestamp_generazione": "2025-12-05T23:13:40.248944"
+}

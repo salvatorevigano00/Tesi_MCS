@@ -1,0 +1,120 @@
+2025-12-05 22:51:01 | INFO     | ================================================================================
+2025-12-05 22:51:01 | INFO     | Esperimento IMCU Fase 1: imcu_fase1_2014-02-01_08-20
+2025-12-05 22:51:01 | INFO     | ================================================================================
+2025-12-05 22:51:01 | INFO     | Avvio: 2025-12-05T22:51:01.174430
+2025-12-05 22:51:01 | INFO     | Parametri allineamento paper IMCU:
+2025-12-05 22:51:01 | INFO     |   Task values: uniforme [1.8, 15.0]
+2025-12-05 22:51:01 | INFO     |   User costs: uniforme [0.45, 0.7] €/km
+2025-12-05 22:51:01 | INFO     |   URBAN_CORRECTION_FACTOR: 1.30
+2025-12-05 22:51:01 | INFO     |   Cost model: star routing
+2025-12-05 22:51:01 | INFO     | Configurazione validata
+2025-12-05 22:51:01 | INFO     | Seed RNG: 42
+2025-12-05 22:51:01 | INFO     | Caricamento DataManager da: /Users/salvatorevigano/Documents/MCS_Thesis/dati/taxi_february.txt
+2025-12-05 22:51:01 | INFO     | Path output ETL: /Users/salvatorevigano/Documents/MCS_Thesis/dataset_processato_condiviso
+2025-12-05 22:51:01 | INFO     | Partizioni CSV esistenti in: /Users/salvatorevigano/Documents/MCS_Thesis/dataset_processato_condiviso/csv_partitions
+2025-12-05 22:51:01 | INFO     | Trovate 720 partizioni, skip parsing
+2025-12-05 22:51:01 | INFO     | ScientificPlotter configurato: DPI=300
+2025-12-05 22:51:01 | INFO     | Ore da simulare: 12 (8-19)
+2025-12-05 22:51:01 | INFO     | [2014-02-01 H08] Inizio simulazione oraria
+2025-12-05 22:51:01 | DEBUG    | [2014-02-01 H08] Task generati: 475
+2025-12-05 22:51:01 | DEBUG    | [2014-02-01 H08] Distribuzione task: min=1.81, max=14.99, mean=8.42, median=8.46
+2025-12-05 22:51:01 | DEBUG    | [2014-02-01 H08] Utenti selezionati: 53
+2025-12-05 22:51:01 | DEBUG    | [2014-02-01 H08] Task assignment: utenti con task 53/53, task/user: min=5, max=31, mean=20.8
+2025-12-05 22:51:01 | DEBUG    | [2014-02-01 H08] Distribuzione bid: min=4.25, max=53.54, mean=29.93
+2025-12-05 22:51:07 | DEBUG    | [2014-02-01 H08] IMCU completato: 20 vincitori su 53 partecipanti
+2025-12-05 22:51:07 | INFO     | [2014-02-01 H08] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:51:07 | INFO     | [2014-02-01 H09] Inizio simulazione oraria
+2025-12-05 22:51:07 | DEBUG    | [2014-02-01 H09] Task generati: 406
+2025-12-05 22:51:07 | DEBUG    | [2014-02-01 H09] Distribuzione task: min=1.84, max=14.99, mean=8.69, median=8.94
+2025-12-05 22:51:07 | DEBUG    | [2014-02-01 H09] Utenti selezionati: 54
+2025-12-05 22:51:07 | DEBUG    | [2014-02-01 H09] Task assignment: utenti con task 54/54, task/user: min=3, max=30, mean=22.3
+2025-12-05 22:51:07 | DEBUG    | [2014-02-01 H09] Distribuzione bid: min=2.94, max=53.41, mean=33.37
+2025-12-05 22:51:10 | DEBUG    | [2014-02-01 H09] IMCU completato: 16 vincitori su 54 partecipanti
+2025-12-05 22:51:10 | INFO     | [2014-02-01 H09] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:51:10 | INFO     | [2014-02-01 H10] Inizio simulazione oraria
+2025-12-05 22:51:10 | DEBUG    | [2014-02-01 H10] Task generati: 395
+2025-12-05 22:51:10 | DEBUG    | [2014-02-01 H10] Distribuzione task: min=1.84, max=14.93, mean=8.20, median=8.09
+2025-12-05 22:51:10 | DEBUG    | [2014-02-01 H10] Utenti selezionati: 54
+2025-12-05 22:51:10 | DEBUG    | [2014-02-01 H10] Task assignment: utenti con task 54/54, task/user: min=4, max=32, mean=21.4
+2025-12-05 22:51:10 | DEBUG    | [2014-02-01 H10] Distribuzione bid: min=4.93, max=47.67, mean=30.48
+2025-12-05 22:51:17 | DEBUG    | [2014-02-01 H10] IMCU completato: 20 vincitori su 54 partecipanti
+2025-12-05 22:51:17 | INFO     | [2014-02-01 H10] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:51:17 | INFO     | [2014-02-01 H11] Inizio simulazione oraria
+2025-12-05 22:51:17 | DEBUG    | [2014-02-01 H11] Task generati: 391
+2025-12-05 22:51:17 | DEBUG    | [2014-02-01 H11] Distribuzione task: min=1.87, max=14.99, mean=8.68, median=8.84
+2025-12-05 22:51:17 | DEBUG    | [2014-02-01 H11] Utenti selezionati: 54
+2025-12-05 22:51:17 | DEBUG    | [2014-02-01 H11] Task assignment: utenti con task 54/54, task/user: min=4, max=31, mean=23.8
+2025-12-05 22:51:17 | DEBUG    | [2014-02-01 H11] Distribuzione bid: min=3.65, max=53.12, mean=35.29
+2025-12-05 22:51:20 | DEBUG    | [2014-02-01 H11] IMCU completato: 16 vincitori su 54 partecipanti
+2025-12-05 22:51:20 | INFO     | [2014-02-01 H11] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:51:20 | INFO     | [2014-02-01 H12] Inizio simulazione oraria
+2025-12-05 22:51:20 | DEBUG    | [2014-02-01 H12] Task generati: 463
+2025-12-05 22:51:20 | DEBUG    | [2014-02-01 H12] Distribuzione task: min=1.85, max=14.99, mean=8.44, median=8.47
+2025-12-05 22:51:20 | DEBUG    | [2014-02-01 H12] Utenti selezionati: 54
+2025-12-05 22:51:20 | DEBUG    | [2014-02-01 H12] Task assignment: utenti con task 54/54, task/user: min=2, max=31, mean=20.4
+2025-12-05 22:51:20 | DEBUG    | [2014-02-01 H12] Distribuzione bid: min=0.84, max=53.08, mean=28.84
+2025-12-05 22:51:28 | DEBUG    | [2014-02-01 H12] IMCU completato: 22 vincitori su 54 partecipanti
+2025-12-05 22:51:28 | INFO     | [2014-02-01 H12] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:51:28 | INFO     | [2014-02-01 H13] Inizio simulazione oraria
+2025-12-05 22:51:28 | DEBUG    | [2014-02-01 H13] Task generati: 735
+2025-12-05 22:51:28 | DEBUG    | [2014-02-01 H13] Distribuzione task: min=1.81, max=15.00, mean=8.36, median=8.33
+2025-12-05 22:51:28 | DEBUG    | [2014-02-01 H13] Utenti selezionati: 76
+2025-12-05 22:51:28 | DEBUG    | [2014-02-01 H13] Task assignment: utenti con task 76/76, task/user: min=3, max=32, mean=21.9
+2025-12-05 22:51:28 | DEBUG    | [2014-02-01 H13] Distribuzione bid: min=1.99, max=58.22, mean=32.29
+2025-12-05 22:51:56 | DEBUG    | [2014-02-01 H13] IMCU completato: 30 vincitori su 76 partecipanti
+2025-12-05 22:51:56 | INFO     | [2014-02-01 H13] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:51:56 | INFO     | [2014-02-01 H14] Inizio simulazione oraria
+2025-12-05 22:51:56 | DEBUG    | [2014-02-01 H14] Task generati: 537
+2025-12-05 22:51:56 | DEBUG    | [2014-02-01 H14] Distribuzione task: min=1.80, max=14.97, mean=8.48, median=8.58
+2025-12-05 22:51:56 | DEBUG    | [2014-02-01 H14] Utenti selezionati: 75
+2025-12-05 22:51:56 | DEBUG    | [2014-02-01 H14] Task assignment: utenti con task 75/75, task/user: min=1, max=32, mean=21.3
+2025-12-05 22:51:56 | DEBUG    | [2014-02-01 H14] Distribuzione bid: min=0.32, max=53.72, mean=31.63
+2025-12-05 22:52:22 | DEBUG    | [2014-02-01 H14] IMCU completato: 28 vincitori su 75 partecipanti
+2025-12-05 22:52:22 | INFO     | [2014-02-01 H14] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:52:22 | INFO     | [2014-02-01 H15] Inizio simulazione oraria
+2025-12-05 22:52:22 | DEBUG    | [2014-02-01 H15] Task generati: 460
+2025-12-05 22:52:22 | DEBUG    | [2014-02-01 H15] Distribuzione task: min=1.80, max=14.98, mean=8.21, median=8.23
+2025-12-05 22:52:22 | DEBUG    | [2014-02-01 H15] Utenti selezionati: 61
+2025-12-05 22:52:22 | DEBUG    | [2014-02-01 H15] Task assignment: utenti con task 61/61, task/user: min=1, max=30, mean=18.4
+2025-12-05 22:52:22 | DEBUG    | [2014-02-01 H15] Distribuzione bid: min=0.23, max=49.74, mean=25.81
+2025-12-05 22:52:35 | DEBUG    | [2014-02-01 H15] IMCU completato: 26 vincitori su 61 partecipanti
+2025-12-05 22:52:35 | INFO     | [2014-02-01 H15] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:52:35 | INFO     | [2014-02-01 H16] Inizio simulazione oraria
+2025-12-05 22:52:35 | DEBUG    | [2014-02-01 H16] Task generati: 584
+2025-12-05 22:52:35 | DEBUG    | [2014-02-01 H16] Distribuzione task: min=1.80, max=14.98, mean=8.22, median=8.06
+2025-12-05 22:52:35 | DEBUG    | [2014-02-01 H16] Utenti selezionati: 64
+2025-12-05 22:52:35 | DEBUG    | [2014-02-01 H16] Task assignment: utenti con task 64/64, task/user: min=4, max=32, mean=23.2
+2025-12-05 22:52:35 | DEBUG    | [2014-02-01 H16] Distribuzione bid: min=3.45, max=49.22, mean=33.46
+2025-12-05 22:52:43 | DEBUG    | [2014-02-01 H16] IMCU completato: 20 vincitori su 64 partecipanti
+2025-12-05 22:52:43 | INFO     | [2014-02-01 H16] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:52:43 | INFO     | [2014-02-01 H17] Inizio simulazione oraria
+2025-12-05 22:52:43 | DEBUG    | [2014-02-01 H17] Task generati: 395
+2025-12-05 22:52:43 | DEBUG    | [2014-02-01 H17] Distribuzione task: min=1.80, max=14.99, mean=8.45, median=8.40
+2025-12-05 22:52:44 | DEBUG    | [2014-02-01 H17] Utenti selezionati: 68
+2025-12-05 22:52:44 | DEBUG    | [2014-02-01 H17] Task assignment: utenti con task 68/68, task/user: min=2, max=32, mean=22.0
+2025-12-05 22:52:44 | DEBUG    | [2014-02-01 H17] Distribuzione bid: min=1.08, max=60.64, mean=32.98
+2025-12-05 22:52:55 | DEBUG    | [2014-02-01 H17] IMCU completato: 22 vincitori su 68 partecipanti
+2025-12-05 22:52:55 | INFO     | [2014-02-01 H17] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:52:55 | INFO     | [2014-02-01 H18] Inizio simulazione oraria
+2025-12-05 22:52:55 | DEBUG    | [2014-02-01 H18] Task generati: 388
+2025-12-05 22:52:55 | DEBUG    | [2014-02-01 H18] Distribuzione task: min=1.84, max=14.95, mean=8.49, median=8.73
+2025-12-05 22:52:55 | DEBUG    | [2014-02-01 H18] Utenti selezionati: 69
+2025-12-05 22:52:55 | DEBUG    | [2014-02-01 H18] Task assignment: utenti con task 69/69, task/user: min=1, max=31, mean=23.3
+2025-12-05 22:52:55 | DEBUG    | [2014-02-01 H18] Distribuzione bid: min=0.15, max=52.85, mean=33.34
+2025-12-05 22:53:02 | DEBUG    | [2014-02-01 H18] IMCU completato: 19 vincitori su 69 partecipanti
+2025-12-05 22:53:02 | INFO     | [2014-02-01 H18] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:53:02 | INFO     | [2014-02-01 H19] Inizio simulazione oraria
+2025-12-05 22:53:02 | DEBUG    | [2014-02-01 H19] Task generati: 330
+2025-12-05 22:53:02 | DEBUG    | [2014-02-01 H19] Distribuzione task: min=1.83, max=14.98, mean=8.18, median=8.11
+2025-12-05 22:53:02 | DEBUG    | [2014-02-01 H19] Utenti selezionati: 72
+2025-12-05 22:53:02 | DEBUG    | [2014-02-01 H19] Task assignment: utenti con task 72/72, task/user: min=5, max=30, mean=22.6
+2025-12-05 22:53:02 | DEBUG    | [2014-02-01 H19] Distribuzione bid: min=4.44, max=53.26, mean=33.23
+2025-12-05 22:53:08 | DEBUG    | [2014-02-01 H19] IMCU completato: 18 vincitori su 72 partecipanti
+2025-12-05 22:53:08 | INFO     | [2014-02-01 H19] Proprietà: IR=True, Profit=True, Monot=True, Crit=True, Truth=True, SubmViol=0
+2025-12-05 22:53:08 | INFO     | Generazione aggregati giornalieri
+2025-12-05 22:53:09 | DEBUG    | Visualizzazioni giornaliere generate
+2025-12-05 22:53:09 | INFO     | Summary report salvato: /Users/salvatorevigano/Documents/MCS_Thesis/Fase_1/experiments_radius_1500/day_2014-02-01/2014-02-01_SUMMARY_REPORT.txt
+2025-12-05 22:53:10 | INFO     | ================================================================================
+2025-12-05 22:53:10 | INFO     | Esperimento completato: durata 128.0s
+2025-12-05 22:53:10 | INFO     | Output: /Users/salvatorevigano/Documents/MCS_Thesis/Fase_1/experiments_radius_1500/day_2014-02-01
+2025-12-05 22:53:10 | INFO     | ================================================================================

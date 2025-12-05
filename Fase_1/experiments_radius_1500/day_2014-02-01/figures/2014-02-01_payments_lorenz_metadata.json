@@ -1,0 +1,21 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_1/experiments_radius_1500/day_2014-02-01/figures/2014-02-01_payments_lorenz.png",
+  "generated_at": "2025-12-05T22:53:09.120229",
+  "plot_type": "lorenz_gini",
+  "parameters": {
+    "gini_coefficient": 0.32285124191694115
+  },
+  "data_stats": {
+    "n_datapoints": 257,
+    "gini": 0.32285124191694115,
+    "min_payment": 3.92845063018666,
+    "max_payment": 152.52223031932147,
+    "mean_payment": 53.24156508305056,
+    "total_payment": 13683.082226343995
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}

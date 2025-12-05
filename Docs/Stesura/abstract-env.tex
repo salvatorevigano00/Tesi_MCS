@@ -1,0 +1,134 @@
+%*********************************************************************************
+% myabstract
+%*********************************************************************************
+\newenvironment{myabstract}{%
+\cleardoublepage%
+\thispagestyle{empty}
+\pagenumbering{roman}
+
+\vspace*{-5ex}
+\begin{center}
+\Large{\titolotesi}
+\end{center}
+
+\vspace*{2ex}
+\noindent
+\begin{tabular}{m{0.58\textwidth}m{0.35\textwidth}}
+\emph{Tesi di Laurea di}    &   \emph{Relatore:}        \\
+\autore                     &   \relatore               \\
+                                                        \\
+\emph{Controrelatore:}      &   \emph{Correlatore:}     \\
+\controrelatore             &   \correlatore            \\
+\end{tabular}
+
+\vspace*{2ex}
+\noindent\HRule{}
+\vspace*{-2ex}
+
+\begin{center}%
+\large \bfseries \abstractname
+\end{center}
+
+}%
+{\vfill\null\clearpage\pagenumbering{arabic}}
+
+
+
+%*********************************************************************************
+% myabstract2
+%*********************************************************************************
+\newenvironment{myabstract2}{%
+\newgeometry{vcentering,                        % Modifica margini pagina
+             bindingoffset=\mybindingoffset,
+             bottom=3.5cm,top=3.25cm,
+             textwidth=16cm}
+\cleardoublepage%
+\thispagestyle{empty}
+\pagenumbering{roman}
+
+\vspace*{-5ex}
+
+\begin{center}
+\large{\university}
+
+\large{\faculty} \\[-2ex]
+\HRule{}
+
+\normalsize{\tipolaurea} \\[2ex]
+
+\Large{\titolotesi}
+\end{center}
+
+\vspace*{3ex}
+\indent
+\begin{tabular}{m{0.55\textwidth}m{0.33\textwidth}}
+\emph{Tesi di Laurea di}    &   \emph{Relatore:}        \\
+\autore                     &   \relatore               \\
+                                                        \\
+\emph{Controrelatore:}      &   \emph{Correlatore:}     \\
+\controrelatore             &   \correlatore            \\
+\end{tabular}
+
+\vspace*{2ex}
+\noindent\HRule{}
+\vspace*{-4.5ex}
+
+\begin{center}%
+\large \bfseries \abstractname
+\end{center}
+
+}%
+{\vfill\null
+\clearpage
+\pagenumbering{arabic}}
+
+
+
+%*********************************************************************************
+% myabstract3
+%*********************************************************************************
+\newenvironment{myabstract3}{%
+\newgeometry{vcentering,                        % Modifica margini pagina
+             bindingoffset=\mybindingoffset,
+             bottom=3.5cm,top=3.5cm,
+             textwidth=16cm}
+\cleardoublepage%
+\thispagestyle{empty}
+\pagenumbering{roman}
+
+\vspace*{-5ex}
+
+\begin{center}
+\large{\university}
+
+\large{\faculty}\\[-2ex]
+\HRule{}
+
+\noindent\normalsize{\tipolaurea}
+\vspace*{1.0ex}
+
+\large{\titolotesi}
+\end{center}
+
+\vspace*{1.0ex}
+\indent
+\begin{tabular}{m{0.58\textwidth}m{0.3\textwidth}}
+\emph{Tesi di Laurea di}    &   \emph{Relatore:}        \\
+\autore                     &   \relatore               \\
+                                                        \\
+\emph{Controrelatore:}      &   \emph{Correlatore:}     \\
+\controrelatore             &   \correlatore            \\
+\end{tabular}
+
+\vspace*{2ex}
+\noindent\HRule{}
+\vspace*{-4.5ex}
+
+\begin{center}%
+\large \bfseries \abstractname
+\end{center}
+
+}%
+{\vfill\null
+\clearpage
+\pagenumbering{arabic}}

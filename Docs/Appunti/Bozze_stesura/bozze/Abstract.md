@@ -1,0 +1,10 @@
+## Abstract
+
+Questa tesi si concentra sulla progettazione, l'implementazione e la validazione di un sistema di **Mobile Crowdsensing (MCS)**, fondato sui principi dell'algoritmo **IMCU (Incentive Mechanism for Crowdsensing Users)**.
+Nella **prima fase**, il sistema viene sviluppato e calibrato a partire da dati reali di mobilità urbana riguardanti una flotta di taxi attivi a Roma, ipotizzando che gli utenti (i tassisti) si comportino in modo perfettamente razionale e cerchino di massimizzare la propria utilità seguendo una logica di **asta inversa veritiera**. L'analisi empirica ha dimostrato che il sistema così progettato rispetta le proprietà teoriche del modello, confermando sia la correttezza che la stabilità e mostrando che le scelte ottimali degli utenti coincidono con l'equilibrio di Nash previsto.
+
+La **seconda fase** introduce invece una dimensione più realistica, assumendo che gli utenti possano manifestare **razionalità limitata**: vengono quindi simulate strategie subottimali, tentativi di manipolazione, partecipazioni parziali o errori valutativi tipici di comportamenti umani concreti. I risultati ottenuti evidenziano come questi fattori portino a una riduzione dell'efficienza complessiva e rendano il meccanismo IMCU vulnerabile in presenza di utenti non perfettamente razionali.
+
+A partire da questi limiti, nella **terza fase** viene progettato e testato un **meccanismo adattivo (GAP)**, che sfrutta modelli di apprendimento automatico e strategie multi-agente per monitorare, apprendere e reagire ai comportamenti degli utenti. In questo modo il sistema è in grado di adattare dinamicamente le regole di incentivo e selezione, riconoscere le reputazioni individuali e ristabilire sia la stabilità che l'efficienza collettiva anche in scenari complessi e non ideali.
+
+Attraverso simulazioni ed esperimenti comparativi, questo lavoro offre una **valutazione concreta della robustezza** dei meccanismi di incentivazione, dimostrando che la capacità di adattarsi ai comportamenti reali degli utenti è cruciale per la sostenibilità futura delle piattaforme di crowdsensing.

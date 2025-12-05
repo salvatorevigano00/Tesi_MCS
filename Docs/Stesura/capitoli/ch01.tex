@@ -1,0 +1,165 @@
+\chapter{Introduzione}
+\label{chap:introduzione}
+
+\section{Contesto del Mobile Crowdsensing}
+\label{sec:contesto-mcs}
+
+Negli ultimi anni si è verificato un cambiamento radicale nel modo in cui raccogliamo dati sul mondo che ci circonda. Gli smartphone e i dispositivi mobili moderni integrano numerosi sensori — ricevitori GPS, accelerometri, giroscopi, magnetometri, microfoni, fotocamere ad alta risoluzione — supportati da capacità di calcolo e connettività in continua crescita. Questa infrastruttura sensoriale distribuita ha reso possibile un nuovo approccio alla raccolta di dati territoriali~\cite{lane2010survey}.
+
+Su questa base tecnologica si è sviluppato il paradigma del \textbf{Mobile Crowdsensing (MCS)}, che sfrutta la mobilità degli utenti per raccogliere informazioni su larga scala senza dover installare infrastrutture dedicate. A differenza delle tradizionali reti di sensori wireless statici (WSN), che richiedono investimenti significativi per il dispiegamento e la manutenzione dell'hardware, l'MCS delega la raccolta dati alla ``folla'' (\textit{crowd}), in cui gli utenti contribuiscono attivamente alla generazione delle informazioni~\cite{ganti2011mobile}.
+
+La letteratura distingue due modalità operative principali~\cite{capponi2019survey}: il \textbf{Rilevamento Partecipativo} (\textit{Participatory Sensing}), in cui l'utente interviene attivamente nel processo (ad esempio, fotografando una buca stradale o segnalando manualmente il prezzo del carburante), e il \textbf{Rilevamento Opportunistico} (\textit{Opportunistic Sensing}), dove la raccolta avviene automaticamente in background durante le normali attività quotidiane, come il campionamento delle reti Wi-Fi o il monitoraggio delle vibrazioni stradali. 
+
+\newpage
+L'architettura generale di un sistema MCS, schematizzata in Figura~\ref{fig:sistema-mcs}, ruota attorno a una piattaforma centrale (tipicamente in cloud). La piattaforma pubblica task geolocalizzati, gli utenti mobili raccolgono dati tramite i sensori dei propri dispositivi e li trasmettono al server, che li aggrega e fornisce servizi ai consumatori finali (amministrazioni pubbliche, enti di ricerca, aziende).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{./immagini/figura_1_1_sistema_mcs.jpg}
+    \caption{Architettura concettuale di un sistema di Mobile Crowdsensing. La piattaforma centrale coordina tre attori principali: (i) pubblica task geolocalizzati agli utenti mobili, (ii) raccoglie dati dai sensori dei dispositivi, (iii) aggrega le informazioni e fornisce servizi ai consumatori finali (amministrazioni pubbliche, enti di ricerca, aziende)~\cite{ganti2011mobile}.}
+    \label{fig:sistema-mcs}
+    \newpage
+\end{figure}
+Le applicazioni concrete sono numerose: dal monitoraggio del traffico in tempo reale alla mappatura dell'inquinamento acustico, dal controllo della qualità dell'aria alla verifica della copertura delle reti cellulari~\cite{white2010waze,maisonneuve2009noisetube}. 
+
+In questo contesto, Roma rappresenta un caso di studio particolarmente interessante. La sua complessa topologia urbana — un centro storico medievale che si intreccia con quartieri moderni — e i flussi di mobilità eterogenei la rendono un banco di prova significativo per analizzare le dinamiche dei sistemi MCS. Il dataset utilizzato in questo lavoro, CRAWDAD \textit{roma/taxi}~\cite{bracciale2022crawdad}, traccia continuativamente gli spostamenti di 316 veicoli per 28 giorni nel febbraio 2014, generando circa 11 milioni di punti GPS su un'area di oltre 1200 km\(^2\). 
+
+\clearpage
+\section{Incentivi e Problema dei Costi}
+\label{sec:problema-incentivi}
+
+Nonostante il potenziale tecnologico, la sostenibilità a lungo termine di un sistema MCS dipende dalla partecipazione attiva e continuativa degli utenti; pertanto, entra in gioco un problema fondamentale: \textbf{la fornitura di dati di qualità comporta costi non trascurabili per i partecipanti}~\cite{restuccia2017quality}.
+\newline
+\newline
+Quando un utente partecipa a una campagna di sensing, sostiene diversi tipi di costi. In primo luogo, vi sono i \textit{costi digitali}: consumo di batteria (talvolta significativo, se sensori come GPS e accelerometri rimangono attivi per lunghi periodi), utilizzo del piano dati mobile, potenza di calcolo. Nel caso di task che richiedono spostamenti fisici verso aree specifiche — quelli che la letteratura definisce rilevamento \textit{location-dependent} — i costi includono carburante, usura del veicolo e tempo impiegato. Un esempio tipico in questo contesto riguarda il tassista che deve deviare dalla rotta ottimale per esigenze di rilevamento: ciò implica il sostenimento di costi aggiuntivi e il rischio di rinunciare a corse potenzialmente redditizie.
+\newline
+\newline
+Anche la \textit{privacy} costituisce una barriera significativa: la condivisione di tracce GPS, registrazioni audio o fotografie geolocalizzate solleva legittime preoccupazioni. Infatti, sorgono diversi quesiti: dove vengono memorizzati questi dati? Chi può accedervi? Possono essere utilizzati per ricostruire abitudini quotidiane e pattern comportamentali sensibili?~\cite{christin2011survey}.
+\newline
+\newline
+La \textit{gamification} (badge, classifiche, punteggi di reputazione) può funzionare inizialmente per attrarre utenti, ma diversi studi hanno evidenziato come tali incentivi intrinsechi perdano efficacia quando i costi tangibili superano la gratificazione psicologica. Quando il rapporto costo-beneficio percepito diventa negativo — ad esempio, sostenere costi di carburante significativi per ottenere solo riconoscimenti virtuali — il tasso di abbandono aumenta drasticamente. La progettazione di \textbf{meccanismi di incentivazione monetaria} robusti ed efficienti risulta fondamentale per garantire la sostenibilità economica di una piattaforma MCS professionale~\cite{jaimes2015survey}.
+
+\newpage
+Progettare questi meccanismi in un contesto reale solleva però questioni complesse. Si identificano tre criticità fondamentali~\cite{zhang2015incentives,yang2015incentive}:
+\begin{enumerate}
+    \item \textbf{Asimmetria informativa:} la piattaforma conosce il valore dei dati che intende raccogliere, ma non conosce i costi privati che ogni singolo utente deve sostenere per fornirli.
+    \item \textbf{Comportamento strategico:} gli utenti, agendo come agenti economici razionali (o tentando di farlo), possono essere incentivati a dichiarare costi gonfiati per massimizzare il proprio profitto a spese dell'efficienza globale del sistema.
+    \item \textbf{Vincoli di budget:} la piattaforma opera con risorse finanziarie limitate e deve massimizzare l'utilità dei dati raccolti rispettando vincoli di bilancio.
+\end{enumerate}
+Per affrontare queste criticità, \textit{Yang et al.} hanno proposto il meccanismo \textbf{IMCU (Incentive Mechanism for Crowdsensing Users)}, basato sulla teoria delle aste inverse (\textit{Reverse Auctions}), che garantisce proprietà teoriche fondamentali come la veridicità (\textit{Truthfulness}) e la razionalità individuale (\textit{Individual Rationality})~\cite{yang2015incentive}; tuttavia, la letteratura esistente si concentra prevalentemente su analisi teoriche o simulazioni in ambienti semplificati, trascurando le complessità comportamentali degli utenti reali.
+\newline
+\newline
+Questo lavoro affronta quindi una domanda centrale: \textbf{in che misura le performance del meccanismo IMCU si mantengono quando il parametro di configurazione (come il raggio di copertura dei task) viene variato, e quali sono i trade-off che emergono tra efficienza economica e inclusività della partecipazione?}
+
+\newpage
+\section{Obiettivi della Ricerca}
+\label{sec:obiettivi}
+Questo lavoro integra competenze di ingegneria del software, teoria dei giochi ed economia comportamentale. L'obiettivo principale è valutare quanto i meccanismi teorici di incentivazione mantengano le loro proprietà in scenari operativi reali, caratterizzati da parametri di configurazione che influenzano in modo significativo le dinamiche competitive.
+\newline
+\newline
+È necessario definire con precisione i confini della ricerca. Sebbene la privacy e la sicurezza dei dati siano temi critici per l'MCS, questo lavoro \textbf{non} sviluppa tecniche crittografiche avanzate: la privacy viene modellata implicitamente nel costo privato $c_i$ sostenuto dall'utente, assumendo che gli utenti richiedano un compenso maggiore per task che espongono dati più sensibili. Questa astrazione economica permette di concentrarsi sulla dinamica di incentivazione senza affrontare le tecniche di protezione dei dati, che costituirebbero un filone di ricerca separato.
+\newline
+\newline
+L'attenzione è quindi focalizzata esclusivamente sulla dinamica economica e algoritmica dell'allocazione dei task, sulla modellazione dei costi operativi e sul comportamento strategico (o sub-strategico) degli utenti.
+\newline
+\newline
+Questo lavoro si articola in \textbf{tre fasi sperimentali}, che corrispondono alle tre parti della struttura della tesi:
+\begin{itemize}
+    \item \textbf{Fase 1 (Parte I):} Validazione della baseline teorica;
+    \item \textbf{Fase 2 (Parte II):} Analisi della robustezza alla razionalità limitata;
+    \item \textbf{Fase 3 (Parte III):} Progettazione di un meccanismo adattivo (GAP).
+\end{itemize}
+
+\newpage
+\subsection{Fase 1: Validazione della Baseline}
+\label{subsec:fase1}
+Nella prima fase è stato progettato e implementato un simulatore MCS completo, calibrato su un dataset reale di mobilità taxi nella città di Roma (febbraio 2014, oltre 300 taxi tracciati). L'obiettivo è riprodurre fedelmente il meccanismo IMCU assumendo una popolazione di agenti a \textbf{razionalità perfetta}.
+\newline
+\newline
+È opportuno chiarire operativamente il concetto di razionalità perfetta nel contesto della simulazione. Nel nostro caso, significa che ogni utente \(i\) sottomette un bid \(b_i\) esattamente uguale al proprio costo reale \(c_i\). Questo rappresenta il comportamento di equilibrio previsto dalla teoria dei giochi quando tutti gli altri utenti agiscono razionalmente e il meccanismo è veritiero (\textit{truthful}): in queste condizioni, dire la verità sul proprio costo diventa la strategia dominante.
+\newline
+\newline
+È importante sottolineare che in questa fase \textbf{non si intende dimostrare} che gli utenti scelgano spontaneamente di essere veritieri — questa proprietà è già garantita teoricamente dal disegno del meccanismo IMCU~\cite{yang2015incentive}. L'obiettivo è piuttosto quello di \textbf{validare empiricamente} che, dato il comportamento di equilibrio (\(b_i = c_i\)), il meccanismo mantiene le proprietà di:
+\begin{itemize}
+    \item \textit{Individual Rationality} (nessun utente opera in perdita: \(p_i \geq b_i\));
+    \item \textit{Profitability} (la piattaforma non va in perdita: \(u_0 \geq 0\)).
+\end{itemize}
+Un aspetto metodologico rilevante di questa fase è l'analisi dell'impatto del parametro \textit{raggio di copertura} dei task sull'efficienza del sistema. Attraverso tre configurazioni sperimentali (raggio 1.5 km, 2.5 km, 4.0 km), vengono quantificati empiricamente i trade-off che emergono: l'aumento del raggio incrementa l'efficienza economica ma riduce drasticamente il numero di partecipanti selezionati, con implicazioni significative per la sostenibilità sociale della piattaforma.
+\newline
+\newline
+I risultati di questa fase costituiscono la baseline quantitativa di riferimento per le fasi successive.
+
+\newpage
+\subsection{Fase 2: Analisi della Razionalità Limitata}
+\label{subsec:fase2}
+Nella seconda fase si introduce un elemento di realismo comportamentale ispirato alla teoria della \textit{Bounded Rationality} di Herbert Simon~\cite{simon1955behavioral}. La letteratura sulla mobilità urbana documenta ampiamente che i tassisti, pur essendo professionisti esperti, adottano euristiche semplificate piuttosto che ottimizzazioni matematiche perfette nella scelta delle corse.
+\newline
+\newline
+Questa osservazione solleva una questione metodologica rilevante: se i tassisti manifestano comportamenti subottimali nelle operazioni quotidiane, è ragionevole assumere che adottino strategie perfettamente razionali in un contesto MCS?
+\newline
+\newline
+Gli agenti della Fase 2 presentano quindi profili comportamentali eterogenei, caratterizzati da:
+\begin{itemize}
+    \item \textbf{Errori nella stima dei costi} (sottostima o sovrastima sistematica delle distanze o dei tempi di percorrenza).
+    \item \textbf{Euristiche decisionali semplificate} (strategie ``sufficientemente buone'' piuttosto che ottimali).
+    \item \textbf{Comportamenti opportunistici non ottimali} (tentativi di manipolazione maldestri del sistema, che non necessariamente massimizzano il profitto individuale).
+\end{itemize}
+L'obiettivo è quantificare, attraverso metriche rigorose, il deterioramento dell'efficienza del meccanismo IMCU quando le assunzioni di perfetta razionalità vengono meno. L'ipotesi di lavoro è che tale deterioramento non sia trascurabile, a dimostrazione della potenziale fragilità dei modelli teorici classici in contesti reali. 
+\newline
+\newline
+Tra le metriche considerate rientrano il tasso di rottura dei contratti, l'efficienza realizzata rispetto alla baseline teorica e misure di robustezza del meccanismo rispetto a diversi profili comportamentali.
+
+\newpage
+\subsection{Fase 3: Meccanismo Adattivo GAP}
+\label{subsec:fase3}
+
+Per affrontare le criticità emerse nella Fase 2, la terza fase propone lo sviluppo di un nuovo meccanismo algoritmico denominato \textbf{GAP (Game-theoretic Adaptive Policy)}. Il meccanismo GAP si basa sull'apprendimento dinamico dei pattern comportamentali degli utenti per adattare le strategie di selezione e incentivazione: invece di assumere che tutti gli utenti siano razionali (Fase 1) o limitarsi a constatare che non lo sono (Fase 2), GAP stima in tempo reale i profili comportamentali individuali — reputazione, affidabilità, pattern di bidding — e ricalibra le regole dell'asta di conseguenza. L'obiettivo è ripristinare l'efficienza e la stabilità del sistema anche in presenza di utenti con razionalità limitata, riducendo il gap tra le prestazioni teoriche e quelle osservate in scenari realistici.
+
+\subsection{Sintesi del Piano Sperimentale}
+\label{subsec:tabella-fasi}
+
+La Tabella~\ref{tab:fasi-sperimentali} sintetizza le tre fasi sperimentali della tesi, evidenziando gli obiettivi, le assunzioni comportamentali sugli utenti e le metriche chiave di valutazione.
+
+\begin{table}[H]
+    \centering
+    \small
+    \begin{tabularx}{\textwidth}{|c|c|X|X|X|}
+        \hline
+        \textbf{Fase} & \textbf{Cap.} & \textbf{Assunzione Utenti} & \textbf{Obiettivo} & \textbf{Metriche Chiave} \\
+        \hline
+        \textbf{Fase 1} & 3--6 & Razionalità perfetta (\(b_i = c_i\)) & Validazione empirica proprietà IMCU su dati reali & Efficienza \(u_0/v(S)\), Profitability, Indice di Gini \\
+        \hline
+        \textbf{Fase 2} & 7 & Razionalità limitata (errori stima, euristiche) & Valutazione del calo di efficienza con comportamenti realistici & Tasso rottura contratti, Efficienza realizzata, Robustezza \\
+        \hline
+        \textbf{Fase 3} & 8 & Eterogenei (razionali + limitati) & Ripristino efficienza tramite apprendimento e adattamento & Recovery rate, Convergenza, Overhead computazionale \\
+        \hline
+    \end{tabularx}
+    \caption{Sintesi delle tre fasi sperimentali della tesi, con indicazione dei capitoli corrispondenti, delle assunzioni sugli utenti, degli obiettivi e delle principali metriche di valutazione.}
+    \label{tab:fasi-sperimentali}
+\end{table}
+
+\newpage
+\section{Contributi del Lavoro}
+\label{sec:contributi}
+
+I principali contributi di questo lavoro possono essere riassunti come segue.
+
+\begin{itemize}
+    \item \textbf{Framework di simulazione data-driven:} a differenza della maggior parte della letteratura MCS, che si basa su simulazioni con dati sintetici o scenari semplificati, questo lavoro sviluppa un ambiente di simulazione che integra dati di mobilità reale (tracce GPS di taxi romani), topologia urbana effettiva e modelli economici calibrati su dati storici (costi operativi taxi Roma 2014). Il dataset copre 316 veicoli tracciati per 28 giorni consecutivi (febbraio 2014), generando circa 11 milioni di punti GPS su un'area di oltre 1200 km\(^2\). La validazione in un contesto urbano complesso come Roma fornisce evidenze quantitative dell'applicabilità operativa del meccanismo IMCU in scenari reali.
+    \item \textbf{Quantificazione dell'impatto del raggio di copertura:} questo lavoro fornisce una prima quantificazione empirica dell'impatto del parametro \textit{raggio di copertura} sulle performance di un'asta inversa MCS. I risultati della Fase 1 (Capitolo~6) evidenziano trade-off rilevanti: l'aumento del raggio da 1.5 km a 4.0 km porta a un incremento dell'efficienza economica, al prezzo però di una drastica contrazione della partecipazione, con implicazioni significative per la sostenibilità sociale della piattaforma. 
+    \item \textbf{Approccio adattivo GAP (proposto):} l'approccio adattivo proposto non richiede assunzioni rigide sul comportamento degli utenti, ma stima dinamicamente i loro profili per ottimizzare le decisioni allocative. Si progetta un sistema che apprende dai comportamenti osservati e si adatta di conseguenza, con l'obiettivo di ripristinare le prestazioni della baseline teorica anche in presenza di razionalità limitata.
+\end{itemize}
+\newpage
+\section{Organizzazione della Tesi}
+\label{sec:organizzazione}
+Di seguito si riportano brevemente i contenuti dei singoli capitoli.
+\begin{description}
+    \item[Capitolo 2] Analizza lo stato dell'arte e i fondamenti teorici, spaziando dai concetti essenziali di Teoria dei Giochi (equilibri di Nash, strategie dominanti) alle sfide operative del Mobile Crowdsensing, inclusi i modelli di razionalità limitata.
+    \item[Capitolo 3] Definisce il modello matematico del sistema (task, utenti e funzioni di costo), formalizzando le assunzioni di razionalità perfetta per la \textbf{Fase 1} e motivando l'adozione dello \textit{star routing} per la stima dei costi operativi.
+    \item[Capitolo 4] Descrive il meccanismo \textit{User-Centric} IMCU, dettagliando gli algoritmi greedy di allocazione e di calcolo dei pagamenti, e ne dimostra le proprietà teoriche fondamentali, inclusa la veridicità.
+    \item[Capitolo 5] Delinea la metodologia sperimentale della prima fase, descrivendo il dataset CRAWDAD \texttt{roma/taxi}, le procedure di ETL e la discretizzazione spaziale utilizzata per generare gli scenari di simulazione.
+    \item[Capitolo 6] Discute i risultati della \textbf{Fase 1}, validando le prestazioni del meccanismo in condizioni ideali e quantificando l'impatto del raggio di copertura sull'efficienza economica e sulla partecipazione.
+    \item[Capitolo 7] Affronta la \textbf{Fase 2}, introducendo modelli di razionalità limitata per valutare il deterioramento dell'efficienza del sistema in presenza di comportamenti utente subottimali o opportunistici.
+    \item[Capitolo 8] Presenta la \textbf{Fase 3} e il meccanismo adattivo GAP (\textit{Game-theoretic Adaptive Policy}), progettato per mitigare le inefficienze comportamentali attraverso tecniche di apprendimento dinamico.
+    \item[Capitolo 9] Conclude il lavoro sintetizzando i risultati ottenuti, discutendo le implicazioni pratiche per la progettazione di sistemi reali e delineando i possibili sviluppi futuri.
+\end{description}

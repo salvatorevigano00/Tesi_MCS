@@ -1,0 +1,78 @@
+================================================================================
+Report simulazione IMCU Fase 2 - giornata 2014-02-01
+Analisi vulnerabilità del meccanismo con popolazione persistente (senza apprendimento)
+================================================================================
+
+Configurazione esperimento
+--------------------------------------------------------------------------------
+Giorno simulato: 2014-02-01
+Finestra oraria: 08:00 - 20:00
+Seed casuale: 42
+
+Parametri task:
+  Dimensione cella: 500 m
+  Raggio assegnazione task: 2500.0 m
+  Modalità valore: demand_log
+  Intervallo valore task: [1.8, 15.0] euro
+
+Parametri utenti (razionalità limitata):
+  Numero massimo utenti/ora: 316
+  Distribuzione razionalità: mixed
+  Modalità defezione: profile_based
+
+Statistiche aggregate giornaliere
+--------------------------------------------------------------------------------
+Metriche ex-ante (teoria del meccanismo IMCU):
+Valore meccanismo v(S_mech): 13,172.87 euro
+Pagamenti totali (sumP): 7,956.34 euro
+Utilità piattaforma u0_mech: 5,216.53 euro
+Efficienza economica (u0_mech/v_mech): 0.3960
+
+Metriche ex-post (realtà comportamentale, dopo le defezioni):
+Valore effettivo v(S_eff): 11,806.82 euro
+Utilità piattaforma u0_eff: 3,850.48 euro
+Rapporto di realizzazione eff_ratio (media): 0.8959
+Rapporto di realizzazione eff_ratio (mediana): 0.8816
+Rapporto di realizzazione eff_ratio (min): 0.8670
+Rapporto di realizzazione eff_ratio (max): 0.9593
+
+Rottura del meccanismo (gap ex-ante vs ex-post):
+Perdita di valore (v_mech - v_eff): 1,366.05 euro
+Tasso di rottura (percentuale di valore perso): 10.37%
+
+Analisi azzardo morale (coorte persistente, senza apprendimento):
+Defezioni totali (reali): 76
+Defezioni rilevate (sanzionate): 35
+Tasso medio defezioni rilevate: 2.92 defezioni/ora
+Tasso medio defezioni totali: 6.33 defezioni/ora
+
+Vincitori totali nell'intera giornata: 616
+Ore simulate con successo: 12
+
+Distribuzione dei profili vincitori (sull'intera giornata)
+--------------------------------------------------------------------------------
+Quasi-Rational                   246 ( 39.9%)
+Bounded Honest                   122 ( 19.8%)
+Bounded Moderate                  96 ( 15.6%)
+Bounded Opportunistic            152 ( 24.7%)
+
+Dettaglio orario Fase 2 (coorte persistente, senza apprendimento)
+--------------------------------------------------------------------------------
+Ora    v_mech       v_eff        u0_eff       Rapp.    Vincitori  Def. ril.  Def. tot. 
+--------------------------------------------------------------------------------
+08h      1,082.49      976.85      280.16  0.9024        54          4          6
+09h      1,072.96    1,029.27      437.72  0.9593        52          2          3
+10h      1,027.32      901.67      264.37  0.8777        46          4          7
+11h      1,018.59      883.09      284.05  0.8670        49          2          7
+12h      1,111.40      979.72      324.40  0.8815        51          5          9
+13h      1,264.06    1,153.49      349.26  0.9125        62          3          6
+14h      1,250.94    1,086.21      303.50  0.8683        57          3          8
+15h      1,155.33    1,064.74      377.08  0.9216        56          2          5
+16h      1,082.86      941.09      250.02  0.8691        52          3          9
+17h        982.24      860.77      295.75  0.8763        45          3          6
+18h      1,040.60      917.52      314.16  0.8817        45          3          6
+19h      1,084.08    1,012.38      370.02  0.9339        47          1          4
+
+================================================================================
+Fine report Fase 2
+================================================================================

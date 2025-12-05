@@ -1,0 +1,28 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_low/giorno_2014-02-01_fase2/grafici/2014-02-01_distribuzione_profili.png",
+  "generated_at": "2025-12-05T23:13:40.338182",
+  "plot_type": "barre_profili_vincitori",
+  "parameters": {
+    "profili": [
+      "Quasi-Rational",
+      "Bounded Honest",
+      "Bounded Moderate",
+      "Bounded Opportunistic"
+    ]
+  },
+  "data_stats": {
+    "n_profili": 4,
+    "totale_vincitori": 600,
+    "distribuzione_profili": {
+      "Quasi-Rational": 0,
+      "Bounded Honest": 0,
+      "Bounded Moderate": 184,
+      "Bounded Opportunistic": 416
+    }
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}

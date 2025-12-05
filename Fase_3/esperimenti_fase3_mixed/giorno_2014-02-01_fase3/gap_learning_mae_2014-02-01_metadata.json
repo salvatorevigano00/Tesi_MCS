@@ -1,0 +1,31 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_3/esperimenti_fase3_mixed/giorno_2014-02-01_fase3/gap_learning_mae_2014-02-01.png",
+  "generated_at": "2025-12-05T23:18:06.623966",
+  "plot_type": "learning_convergence",
+  "parameters": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "data_stats": {
+    "mae_iniziale": 0.16197017611668427,
+    "mae_finale": 0.18275143029105517,
+    "riduzione_pct": -12.830296708080361
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}

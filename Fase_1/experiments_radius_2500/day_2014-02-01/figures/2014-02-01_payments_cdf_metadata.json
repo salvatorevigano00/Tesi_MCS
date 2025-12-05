@@ -1,0 +1,21 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_1/experiments_radius_2500/day_2014-02-01/figures/2014-02-01_payments_cdf.png",
+  "generated_at": "2025-12-05T22:54:08.459549",
+  "plot_type": "cdf",
+  "parameters": {},
+  "data_stats": {
+    "n_datapoints": 150,
+    "min": 3.92845063018666,
+    "max": 241.1419310322098,
+    "p25": 65.44741839046284,
+    "p50": 110.82632519845157,
+    "p75": 154.2578283655779,
+    "p90": 187.5032040665135,
+    "mean": 109.80240378255687
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}

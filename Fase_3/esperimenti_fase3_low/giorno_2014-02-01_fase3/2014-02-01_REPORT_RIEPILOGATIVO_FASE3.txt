@@ -1,0 +1,70 @@
+================================================================================
+Report simulazione fase 3 - giornata 2014-02-01
+Analisi meccanismo adattivo - simulazione stateful
+================================================================================
+
+Configurazione esperimento
+--------------------------------------------------------------------------------
+Giorno: 2014-02-01
+Finestra: 08:00 - 20:00
+Seed: 42
+Razionalità: low
+Max utenti: 316
+Raggio task: 2500.0m
+Valore task: [1.8, 15.0]€
+
+Statistiche aggregate giornaliere
+--------------------------------------------------------------------------------
+Metriche ex-post:
+  Valore effettivo v(S_eff): 9,584.55€
+  Pagamenti base: 7,517.81€
+  Pagamenti finali (post-incentivo): 7,887.87€
+  Utilità piattaforma (u0_eff): 1,696.68€
+  Profittabilità: Sì
+
+Efficacia meccanismo:
+  Valore teorico (v_mech): 14,538.48€
+  Valore reale (v_eff): 9,584.55€
+  Breakdown: 4,953.93€ (34.07%)
+
+Incentivi:
+  Costo netto: 370.07€
+  Impatto: +4.92%
+
+Apprendimento:
+  Mae(rho): 0.1645 ± 0.0259
+  Rho medio (reale): 0.478
+  Rho medio (stimato): 0.639
+  R medio: 0.780 ± 0.116
+
+Salute sistema:
+  Completion rate: 63.16%
+  Violazioni ir: 8.79%
+  Health score: 0.562
+  Stato: Accettabile
+
+Confronto con fase 2
+--------------------------------------------------------------------------------
+File baseline fase 2 non trovato: /Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_baseline/giorno_2014-02-01_fase2/2014-02-01_kpi_giornalieri_fase2.csv
+Eseguire prima fase 2 baseline per abilitare confronto
+
+Dettaglio orario
+--------------------------------------------------------------------------------
+Ora    u0_eff     v_eff      sumP_fin   Compl%   Ir%       Health   Mae(rho)  
+--------------------------------------------------------------------------------
+08h        2.07    946.95    944.88  76.25%    6.12%   0.500    0.2138
+09h      105.26    897.01    791.75  71.19%    8.33%   0.500    0.2013
+10h      239.34    975.48    736.14  81.00%    2.13%   0.875    0.1909
+11h      181.57    872.82    691.25  68.97%    2.13%   0.875    0.1801
+12h      166.28    863.42    697.14  68.56%    9.09%   0.500    0.1701
+13h       84.80    863.42    778.62  56.03%   10.00%   0.500    0.1633
+14h      133.38    879.04    745.65  64.64%    6.12%   0.500    0.1562
+15h      134.02    634.50    500.48  50.00%   13.16%   0.500    0.1475
+16h      164.06    754.25    590.19  55.46%   17.95%   0.500    0.1425
+17h      126.18    658.97    532.79  56.68%   11.11%   0.500    0.1392
+18h      170.25    628.24    458.00  54.23%   12.50%   0.500    0.1357
+19h      189.47    610.45    420.98  54.97%    6.90%   0.500    0.1331
+
+================================================================================
+Fine report fase 3
+================================================================================

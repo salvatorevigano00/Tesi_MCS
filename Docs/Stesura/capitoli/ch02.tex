@@ -1,0 +1,596 @@
+\chapter{Stato dell'Arte e Fondamenti Teorici}
+\label{chap:stato-arte}
+
+\section{Evoluzione dei Sistemi di Sensing}
+\label{subsec:contesto-mcs}
+
+Nel contesto dell'intelligenza ambientale (\textit{Ambient Intelligence}) e delle \textit{Smart City}, la necessità di raccogliere dati territoriali in tempo reale e in modo capillare è emersa con forza a partire dalla fine degli anni '90. Le prime risposte tecnologiche a questa esigenza si sono basate sul paradigma delle \textbf{Wireless Sensor Network (WSN)}, reti costituite da insiemi di nodi sensori statici dispiegati fisicamente sul territorio con un notevole sforzo logistico ed economico~\cite{lane2010survey,ganti2011mobile}. Applicazioni tipiche includono la sensoristica industriale per la prevenzione sismica e i sistemi di monitoraggio strutturale (\textit{Structural Health Monitoring}) di ponti, gallerie e infrastrutture critiche.
+
+Il \textbf{modello architetturale WSN} assume in genere una topologia prevalentemente statica, con nodi stazionari e sincronizzati che comunicano secondo uno schema di tipo \textit{point-to-sink}. Il deployment è vincolato da problemi severi di copertura radio e consumo energetico, che impongono una precisa calibrazione della densità dei nodi e della frequenza di campionamento $f_t$. In letteratura, viene messo in realtà come la densità di campionamento e la scalabilità delle WSN risultino, in pratica, limitate dagli elevati costi di installazione e manutenzione, con il rischio di ottenere \textit{coperture frammentate} e una scarsa capacità di adattamento ai pattern dinamici e spesso imprevedibili della mobilità urbana~\cite{ganti2011mobile,capponi2019survey}.
+
+\newpage
+L'avvento dei dispositivi mobili multimodali (\textit{smartphone}, \textit{wearable}, \textit{tablet}), dotati di un ampio set di sensori eterogenei — GPS, accelerometri, magnetometri, barometri, sensori di prossimità — e di interfacce di comunicazione a banda larga (Wi-Fi, LTE, 5G), ha progressivamente cambiato questo quadro. A partire dal 2010, le stime dell'ITU indicano la presenza di miliardi di dispositivi in uso attivo; ciascuno di essi rappresenta, di fatto, un potenziale \textit{nodo sensoriale mobile} distribuito in modo casuale e capillare sull'intero territorio~\cite{lane2010survey,ganti2011mobile}.
+
+La differenza sostanziale tra WSN e MCS non è quindi solo architetturale, ma riguarda anche la \emph{natura della fonte del dato}:
+\begin{itemize}
+    \item Le WSN raccolgono prevalentemente dati ''ambientali'' tramite hardware proprietario dedicato, installato per uno scopo specifico;
+    \item Le reti di \textit{Mobile Crowdsensing}, al contrario, acquisiscono dati ''sociali'', ''comportamentali'' e ''spazio-temporali'' sfruttando come vettore la mobilità naturale e l'\textit{agency} della popolazione urbana.
+\end{itemize}
+Questo cambio di prospettiva rende possibile una copertura molto più densa e flessibile, ma introduce anche nuove sfide: \textit{l'eterogeneità dei profili comportamentali} degli utenti, \textit{l'imprevedibilità dei pattern} di copertura spazio-temporale e la necessità di rispettare vincoli stringenti di \textit{privacy-by-design} per garantire l'affidabilità e l'accettabilità sociale del servizio~\cite{capponi2019survey}.
+
+\subsection{Definizione di Mobile Crowdsensing}
+\label{subsec:definizione-mcs}
+
+Per inquadrare con precisione il paradigma, è utile introdurre una definizione esplicita.
+
+\begin{definition}[Mobile Crowdsensing]
+\label{def:mcs}
+Il \textbf{Mobile Crowdsensing} (\textbf{MCS}) è un paradigma di \textit{sensing} partecipativo in cui una piattaforma digitale, generalmente centralizzata e basata su infrastrutture cloud, coordina e incentiva la raccolta, la trasmissione e l'aggregazione di dati provenienti dal multistrato sensoriale di una vasta popolazione di dispositivi mobili. I dispositivi sono detenuti da utenti umani (gli \emph{agenti}), che compiono azioni volontarie o semi-automatiche (misurazioni, fotografie, \textit{logging}, annotazioni semantiche). L'MCS sfrutta la capillarità e la mobilità intrinseca della popolazione per massimizzare al tempo stesso la granularità informativa e la copertura spazio-temporale delle osservazioni, superando i limiti di scalabilità delle reti di sensori fisse~\cite{ganti2011mobile,capponi2019survey}.
+\end{definition}
+
+\newpage
+Questa definizione mette in evidenza la \emph{scalabilità sociale} del MCS: la \textit{crowd}, composta da utenti reali che già portano con sé dispositivi mobili, può essere coinvolta — previo un adeguato meccanismo di incentivazione — per raccogliere informazioni ad alta risoluzione su fenomeni urbani complessi. In molti casi, ottenere una simile densità e varietà di dati con hardware dedicato richiederebbe investimenti proibitivi; il MCS consente di ridurre drasticamente tali barriere di ingresso, trasferendo parte dei costi infrastrutturali sul parco dispositivi esistente (cfr. Capitolo~\ref{chap:introduzione}, Sezione~\ref{sec:contesto-mcs}).
+
+\subsection{Architettura e tassonomia dei sistemi MCS}
+\label{subsec:architettura-mcs}
+
+\subsubsection{Tassonomia architetturale}
+\label{subsubsec:tassonomia-architetturale}
+
+I sistemi di raccolta dati wireless possono essere ricondotti a tre macro-architetture che rappresentano una vera e propria progressione storica e tecnologica~\cite{capponi2019survey}: le reti di sensori statiche (\textbf{WSN}), i sistemi di \textit{peer-to-peer sensing} e le piattaforme di \textit{Mobile Crowdsensing} (\textbf{MCS}). Ciascun paradigma adotta un diverso modello di coordinamento, richiede livelli differenti di investimento infrastrutturale e offre gradi diversi di flessibilità e scalabilità.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{./Immagini/figura_2_1_differenze_architetture_raccolta_dati.png}
+    \caption{Schema delle principali architetture di raccolta dati mobili. La figura mostra la tassonomia fra WSN, paradigmi peer-to-peer e Mobile Crowdsensing, evidenziando per ciascuno le caratteristiche chiave di deployment e di funzionamento, in linea con le classificazioni proposte nelle principali survey di letteratura~\cite{lane2010survey,ganti2011mobile,capponi2019survey}.}
+    \label{fig:tassonomia-sensing}
+\end{figure}
+
+Nelle \textbf{WSN} tradizionali, la logica del sistema è fortemente centrata sull'infrastruttura installata ad hoc: i nodi sensori sono posizionati in punti specifici, spesso difficilmente accessibili, e inviano le misure a un unico punto di raccolta o a un insieme ristretto di gateway. Questo paradigma garantisce un buon controllo hardware e un flusso dati prevedibile, ma soffre per costi elevati di installazione e manutenzione, copertura rigida e difficoltà ad adattarsi rapidamente a cambiamenti nella domanda informativa o nei pattern di mobilità.
+
+I sistemi di \textbf{peer-to-peer sensing} riducono il grado di centralizzazione, valorizzando la comunicazione diretta tra dispositivi vicini. In questo scenario la scoperta dei nodi, la negoziazione dello scambio dati e la condivisione delle risorse avvengono in modo distribuito, sfruttando collegamenti locali (ad esempio Bluetooth o Wi-Fi Direct). Questa scelta migliora resilienza e privacy a livello di prossimità, ma rende più complesso ottenere una visione globale coerente e garantire copertura omogenea sull'intero territorio urbano.
+
+Le piattaforme di \textbf{Mobile Crowdsensing} rappresentano l'ultimo passo di questa evoluzione. Esse combinano un forte coordinamento centrale, tipicamente cloud-based, con una fase di sensing distribuita affidata ai dispositivi degli utenti. La piattaforma definisce e pubblica i task, raccoglie e valida i contributi e aggrega le osservazioni, mentre gli utenti partecipano fornendo dati ambientali e contestuali direttamente dai propri smartphone. Questo modello offre una scalabilità potenzialmente molto elevata e una copertura spazio-temporale fine, ma introduce sfide specifiche in termini di gestione degli incentivi, tutela della privacy e controllo della qualità del dato.
+
+\begin{table}[H]
+    \centering
+    \footnotesize
+    \setlength{\tabcolsep}{4pt}
+    \renewcommand{\arraystretch}{1.2}
+    \begingroup
+    % niente sillabazione dentro la tabella
+    \hyphenpenalty=10000\exhyphenpenalty=10000
+    \begin{tabularx}{\textwidth}{|l|Y|Y|Y|}
+        \hline
+        \textbf{Architettura} & \textbf{Utilizzo} & \textbf{Dati} & \textbf{Tipologia} \\
+        \hline
+        \textbf{WSN} &
+        Rete di sensori fissi installati su infrastruttura dedicata &
+        Misure fisiche e ambientali di natura oggettiva &
+        Raccolta automatica, senza coinvolgimento diretto dell'utente \\
+        \hline
+        \textbf{Peer-to-peer Sensing} &
+        Connessioni dirette tra dispositivi vicini, senza backend centrale &
+        Informazioni locali di prossimità e di contesto &
+        Partecipazione perlopiù passiva degli utenti-dispositivi \\
+        \hline
+        \textbf{Mobile Crowdsensing} &
+        Dispositivi mobili personali che raccolgono dati durante gli spostamenti &
+        Dati ambientali e contestuali, arricchiti da valutazioni soggettive &
+        Partecipazione attiva o opportunistica degli utenti \\
+        \hline
+    \end{tabularx}
+    \endgroup
+    \caption{Sintesi dei tre principali paradigmi di raccolta dati mobili.}
+    \label{tab:paradigmi-raccolta-dati}
+\end{table}
+
+\subsubsection{Architettura a Tre Livelli}
+\label{subsubsec:three-tier}
+
+Nell'ambito dei sistemi di Mobile Crowdsensing (MCS) più evoluti, la letteratura scientifica converge verso un'architettura logica organizzata in una struttura stratificata a tre livelli: \cite{capponi2019survey}
+\begin{enumerate}
+    \item \textbf{Layer Piattaforma (Platform Tier):} \\
+    Rappresenta il cervello del sistema, generalmente ospitato su infrastrutture cloud. Questo livello ha la responsabilità globale dell'intera campagna di sensing e gestisce il ciclo di vita dei dati: dalla raccolta dei dati grezzi fino all'analisi dettagliata e specializzata. Le sue funzioni principali includono:
+    \begin{itemize}
+        \item \textbf{Gestione dei Task:} Creazione, pianificazione (\textit{scheduling}) e allocazione ottimale dei compiti agli utenti più idonei (\textit{task assignment}), basandosi su criteri di efficienza o copertura spaziale.
+        \item \textbf{Elaborazione dei Dati:} Una volta ricevuti i contributi, la piattaforma non si limita ad archiviarli, ma esegue processi di aggregazione e validazione. Qui vengono spesso applicati algoritmi di \textit{Truth Discovery} per filtrare dati rumorosi o maliziosi \cite{ganti2011mobile}.
+        \item \textbf{Gestione dell'Ecosistema:} Include la distribuzione degli incentivi (pagamenti, crediti o reputazione) e l'applicazione rigorosa delle politiche di sicurezza, controllo degli accessi e anonimizzazione dei dati sensibili.
+    \end{itemize}
+
+    \item \textbf{Layer Task (Task Tier):} \\
+    Questo livello agisce come un'interfaccia logica o un livello di astrazione tra le richieste della piattaforma e le capacità degli utenti. Non si tratta solo di una "lista di cose da fare", ma di una definizione formale dei requisiti della missione. Un task viene qui modellato attraverso parametri specifici:
+    \begin{itemize}
+        \item \textbf{Vincoli Spazio-Temporali:} L'area geografica di interesse (ROI) e la finestra temporale entro cui la rilevazione è valida.
+        \item \textbf{Specifiche Tecniche:} La tipologia di sensori richiesti (es. accelerometro, fotocamera, microfono) e la qualità minima accettabile del dato.
+        \item \textbf{Modello Economico e Privacy:} Il valore del budget allocato per il task (il "prezzo" del dato) e le policy di riservatezza richieste per quella specifica rilevazione.
+    \end{itemize}
+    \newpage
+    \item \textbf{Layer Utenti (User/Worker Tier):} \\
+    Costituisce la base della piramide ed è composto dagli agenti partecipanti, intesi come l'unione inscindibile tra l'essere umano e il proprio dispositivo mobile (\textit{smartphone} o \textit{wearable}). Questo livello è intrinsecamente dinamico e imprevedibile. Ogni agente è caratterizzato da:
+    \begin{itemize}
+        \item \textbf{Contesto Dinamico:} Una posizione che varia continuamente nello spazio urbano e uno stato del dispositivo mutevole (livello di batteria, connettività disponibile).
+        \item \textbf{Costi e Vincoli:} L'utente sostiene costi reali per partecipare, siano essi tangibili (consumo dati, batteria) o intangibili (tempo, sforzo fisico, attenzione).
+        \item \textbf{Profilo Comportamentale:} Include lo storico dell'affidabilità (reputazione) e le preferenze personali di privacy che influenzano la decisione di accettare o rifiutare un task.
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \newlength{\newboxwidth}
+    \setlength{\newboxwidth}{0.27\textwidth} 
+    \scalebox{0.92}{
+        \begin{tikzpicture}[
+            node distance=1.8cm and 0.25cm, 
+            every node/.style={font=\sffamily},
+            tierbox/.style={
+                draw=blue!40!black,
+                fill=blue!5,
+                rounded corners=3pt,
+                inner sep=8pt,
+                line width=1.2pt,
+                drop shadow={opacity=0.1, shadow xshift=1pt, shadow yshift=-1pt}
+            },
+            tiertitle/.style={
+                font=\bfseries\normalsize, 
+                text=blue!40!black,
+                anchor=south,
+                yshift=2pt
+            },
+            modulebox/.style={
+                draw=gray!50,
+                fill=white,
+                rounded corners=2pt,
+                inner sep=4pt,
+                text width=\newboxwidth, 
+                minimum height=2.5cm,
+                align=center,
+                font=\footnotesize, 
+                anchor=north
+            },
+            flowarrow/.style={
+                ->,
+                >=LaTeX,
+                line width=1.5pt,
+                color=gray!60!black
+            },
+            arrowlabel/.style={
+                midway,
+                fill=white,
+                font=\scriptsize\bfseries, 
+                text=gray!60!black,
+                rounded corners=2pt,
+                inner sep=2pt, 
+                draw=gray!20,
+                align=center,
+                fill opacity=0.95
+            }
+        ]
+            \hyphenpenalty=10000 
+            \exhyphenpenalty=10000
+    
+            \node[modulebox] (pm_data) {
+                \textbf{Elaborazione Dati}\\[2pt]
+                - Aggregazione/Validazione\\
+                - \textit{Truth Discovery}\\
+                - Filtro dati rumorosi
+            };
+            
+            \node[modulebox, left=of pm_data] (pm_task) {
+                \textbf{Gestione dei Task}\\[2pt]
+                - Creazione e Scheduling\\
+                - Allocazione (Assignment)\\
+                - Criteri efficienza
+            };
+            
+            \node[modulebox, right=of pm_data] (pm_eco) {
+                \textbf{Gestione Ecosistema}\\[2pt]
+                - Incentivi\\
+                - Sicurezza e Accessi\\
+                - Anonimizzazione
+            };
+            
+            \begin{scope}[on background layer]
+                \node[tierbox, fit=(pm_task)(pm_eco)(pm_data), label={[tiertitle]north:Layer Piattaforma (Platform)}] (platform_tier) {};
+            \end{scope}
+    
+            \node[modulebox, below=of pm_data] (tm_specs) {
+                \textbf{Specifiche Tecniche}\\[2pt]
+                - Sensori richiesti\\
+                - Qualità minima dato
+            };
+            
+            \node[modulebox, left=of tm_specs] (tm_constraints) {
+                \textbf{Vincoli Spazio-Tempo}\\[2pt]
+                - Area (ROI)\\
+                - Finestra temporale
+            };
+            
+            \node[modulebox, right=of tm_specs] (tm_model) {
+                \textbf{Economia \& Privacy}\\[2pt]
+                - Budget task\\
+                - Policy riservatezza
+            };
+            
+            \begin{scope}[on background layer]
+                \node[tierbox, fit=(tm_constraints)(tm_model)(tm_specs), label={[tiertitle]north:Layer Task (Interface)}] (task_tier) {};
+            \end{scope}
+    
+            \node[modulebox, below=of tm_specs, text width=0.89\textwidth, align=center, minimum height=1.8cm] (user_unit) {
+                \textbf{Agente Partecipante (Umano + Dispositivo Mobile)}\\[4pt]
+                \begin{minipage}[t]{0.28\textwidth}
+                    \centering \textbf{Contesto Dinamico}\\ \scriptsize Posizione, Batteria, Rete.
+                \end{minipage}
+                \hfill
+                \begin{minipage}[t]{0.28\textwidth}
+                     \centering \textbf{Costi e Vincoli}\\ \scriptsize Dati, Tempo, Sforzo.
+                \end{minipage}
+                \hfill
+                \begin{minipage}[t]{0.28\textwidth}
+                     \centering \textbf{Profilo}\\ \scriptsize Reputazione, Privacy.
+                \end{minipage}
+            };
+            
+            \begin{scope}[on background layer]
+                \node[tierbox, draw=green!40!black, fill=green!5, fit=(user_unit), label={[tiertitle, text=green!40!black]north:Layer Utenti (User/Worker)}] (user_tier) {};
+            \end{scope}
+    
+            \draw[flowarrow] (pm_task.south) -- 
+                             node[arrowlabel, align=center] {Task Assignment\\\& Requisiti} 
+                             (tm_constraints.north);
+    
+            \draw[flowarrow] (tm_constraints.south) -- 
+                             node[arrowlabel] {Selezione\\\& Incentivi} 
+                             ($(user_unit.north west)!0.16!(user_unit.north east)$);
+    
+            \draw[flowarrow, color=red!60!black] ($(user_unit.north east)!0.16!(user_unit.north west)$) -- 
+                             node[arrowlabel, text=red!60!black] {Dati Sensing\\\& Contributi} 
+                             (tm_model.south);
+                             
+            \draw[flowarrow, color=red!60!black] (tm_model.north) -- 
+                             node[arrowlabel, text=red!60!black] {Dati Aggregati\\\& Status} 
+                             (pm_eco.south);
+    
+        \end{tikzpicture}
+    }
+    \caption{Architettura logica a tre livelli per sistemi MCS evoluti.}
+    \label{fig:three_tier_architecture}
+\end{figure}
+
+\newpage
+\subsection{Acquisizione dei dati: Participatory vs Opportunistic Sensing}
+\label{subsec:modalita-operative}
+La modalità con cui avviene la raccolta del dato è un aspetto centrale nella progettazione dei sistemi MCS, perché incide sia sullo sforzo richiesto agli utenti sia sul tipo di informazione che la piattaforma può ottenere~\cite{capponi2019survey}. In letteratura si distinguono due modalità principali: il \textit{Participatory Sensing}, in cui l'utente interviene in modo esplicito, e l'\textit{Opportunistic Sensing}, in cui il dispositivo rileva dati in modo quasi trasparente rispetto alle azioni quotidiane~\cite{lane2010survey}.
+
+\begin{description}
+    \item[Participatory Sensing:] l'utente è parte attiva e consapevole del processo di sensing (\textit{user-in-the-loop}). Riceve un task (notifica, richiesta nell'app), decide se accettarlo e quando eseguirlo e può anche controllare il dato prima dell'invio, ad esempio scegliendo quali foto o commenti condividere. Questa modalità è indicata per informazioni con forte contenuto semantico o soggettivo, come giudizi di qualità o segnalazioni puntuali di problemi. \textit{Esempi:} scattare e caricare la foto di una buca stradale per una campagna di manutenzione; indicare tramite app il livello di affollamento di un mezzo pubblico~\cite{lane2010survey}. Il vantaggio è il maggiore controllo per l'utente; il limite è che la partecipazione dipende dalla sua motivazione e disponibilità.
+    
+    \item[Opportunistic Sensing:] in questo caso il dispositivo esegue il campionamento in modo automatico, seguendo politiche impostate dalla piattaforma, e l'intervento dell'utente è minimo. I dati diventano un \textit{byproduct} della routine: lo smartphone viene usato normalmente, mentre un servizio in background raccoglie periodicamente misure (GPS, accelerometro, microfono, sensori ambientali) e le invia quando vi sono condizioni favorevoli, ad esempio buona connettività o batteria sufficiente. Questa modalità è adatta a fenomeni che richiedono misure frequenti e diffuse, come il monitoraggio del traffico o del rumore urbano. \textit{Esempi:} il logging continuo delle tracce GPS dei taxi (come nel dataset CRAWDAD) o la raccolta automatica dei livelli di rumore durante gli spostamenti quotidiani~\cite{lane2010survey,capponi2019survey}. Offre copertura ampia e continua, ma pone sfide legate a consumo energetico e tutela della privacy.
+\end{description}
+
+Nella pratica, molte piattaforme MCS combinano le due modalità. Una stessa applicazione può mantenere sempre attivo un livello opportunistico a bassa frequenza e, quando necessario, attivare campagne partecipative mirate per ottenere contributi più ricchi o specifici (ad esempio in caso di eventi imprevisti o criticità locali). Il bilanciamento tra componente partecipativa e opportunistica dipende dal dominio applicativo, dai vincoli di privacy ed energia e dal tipo di incentivi messi a disposizione degli utenti.
+
+\newpage
+\subsection{Scenari applicativi}
+\label{subsec:casi-applicativi}
+
+L'adozione del paradigma MCS ha dato luogo a numerose applicazioni reali in ambiti anche molto diversi tra loro. Questi esempi mostrano come la raccolta diffusa di dati tramite dispositivi mobili possa diventare uno strumento concreto di supporto alle decisioni operative e alla pianificazione a livello urbano e territoriale. 
+
+\begin{itemize}
+    \item \textbf{Smart City e infomobilità:} piattaforme come \textit{Waze} rappresentano uno dei casi di maggior successo di crowdsensing su larga scala. L'app raccoglie continuamente segnalazioni e tracce di percorrenza dagli automobilisti e le usa per proporre percorsi alternativi, avvisare in tempo reale su incidenti, lavori in corso e congestioni e stimare i tempi di viaggio. In questo modo il sistema diventa un supporto dinamico alla gestione della viabilità e alla comunicazione verso i cittadini. 
+    \item \textbf{Monitoraggio ambientale:} progetti come \textit{NoiseTube} trasformano lo smartphone in un fonometro mobile, permettendo di costruire mappe acustiche dettagliate a partire dai contributi di molti utenti. Lo stesso approccio può essere esteso alla misura di altri inquinanti, come il particolato o alcuni gas atmosferici, aprendo la strada a forme di \textit{citizen science} in cui i cittadini partecipano direttamente alla produzione di dati ambientali ad alta risoluzione spaziale. 
+    \item \textbf{Pianificazione dei trasporti:} l'analisi dei dati di mobilità raccolti da taxi, autobus o servizi di ride-sharing consente di ricostruire i flussi reali di spostamento all'interno della città. Queste informazioni permettono di individuare colli di bottiglia infrastrutturali, valutare l'efficacia delle linee esistenti e progettare interventi mirati sulla rete di trasporto pubblico, basandosi su evidenze empiriche anziché su modelli puramente teorici. 
+    \item \textbf{Sanità pubblica (m-Health):} nel campo della salute pubblica, sistemi MCS sono stati impiegati per monitorare abitudini a rischio, tracciare i pattern di mobilità durante epidemie o raccogliere indicatori distribuiti di benessere (ad esempio, livelli di attività fisica o esposizione al rumore). In questi scenari è centrale l'adozione di tecniche di raccolta e aggregazione che preservino la privacy, così da coniugare il valore informativo dei dati con la tutela dei singoli individui. 
+\end{itemize}
+
+\newpage
+\subsection{Limiti principali per la sostenibilità delle piattaforme}
+\label{subsec:limiti-mcs}
+
+Nonostante i vantaggi rispetto alle architetture tradizionali, i sistemi MCS presentano criticità intrinseche che devono essere affrontate in modo sistematico~\cite{restuccia2017quality,capponi2019survey}: 
+
+\begin{enumerate}
+    \item \textbf{Qualità e affidabilità del dato (\textit{Data Trustworthiness}):} l'assenza di un controllo diretto sulla manutenzione dell'hardware, sulla calibrazione dei sensori e sull'onestà delle rilevazioni rende necessario ricorrere a strategie di aggregazione robuste, come algoritmi di \textit{Truth Discovery} e sistemi di punteggio reputazionale. La variabilità dei sensori \textit{consumer-grade} e l'eterogeneità dei comportamenti umani introducono rumore e bias che possono degradare la \textit{Quality of Information} complessiva~\cite{restuccia2017quality}. 
+    \item \textbf{Privacy e sicurezza:} dataset che includono tracce GPS, registrazioni audio o dati ambientali ricchi di contesto possono rivelare abitudini, luoghi sensibili e identità degli utenti. Senza adeguati meccanismi di anonimizzazione, \textit{privacy-preserving} e controllo degli accessi, i partecipanti sono esposti a rischi concreti di re-identificazione e profilazione. L'architettura deve quindi incorporare i principi di \textit{privacy-by-design} fin dalle prime fasi di progettazione~\cite{christin2011survey}. 
+    \item \textbf{Sostenibilità della partecipazione (\textit{Incentive Mechanisms}):} la partecipazione comporta costi certi per l'utente (batteria, traffico dati, tempo, deviazioni di percorso). In assenza di incentivi economici o sociali adeguati, calibrati sul trade-off tra costi e benefici, l'entusiasmo iniziale tende a esaurirsi rapidamente, dando luogo a fenomeni di \textit{user fatigue}. Lo studio delle aste inverse, del \textit{auction design} e delle economie comportamentali rappresenta quindi una linea di ricerca centrale, nonché uno dei focus principali di questa tesi~\cite{jaimes2015survey,zhang2015incentives}. 
+\end{enumerate}
+
+Queste considerazioni motivano l'analisi approfondita dei meccanismi di incentivazione che verrà sviluppata nelle sezioni e nei capitoli successivi, con particolare attenzione alla loro robustezza in scenari realistici. 
+
+\newpage
+\section{Teoria dei Giochi nei sistemi MCS}
+\label{sec:teoria-giochi-mcs}
+La \textbf{Teoria dei Giochi} fornisce il quadro matematico entro cui modellare le interazioni strategiche tra agenti razionali — utenti e piattaforma — nei sistemi di Mobile Crowdsensing (MCS). Utilizzando questo formalismo, è possibile affrontare in modo rigoroso il problema dell'allocazione ottima delle risorse e progettare meccanismi di incentivazione (\textit{Mechanism Design}) capaci di soddisfare simultaneamente vincoli critici quali la razionalità individuale (\textit{Individual Rationality}), affinché la partecipazione sia vantaggiosa, e la compatibilità degli incentivi (\textit{Incentive Compatibility}), per garantire la veridicità delle informazioni private dichiarate~\cite{fudenberg1991game,krishna2009auction}.
+In forma astratta, un ecosistema MCS può essere modellato come una tupla \(\,G = (N, S, u)\,\), definita come segue:
+\begin{itemize}
+    \item \(N = \{1, 2, \dots, n\}\) è l'insieme finito degli agenti (o \textit{giocatori}). In un tipico scenario MCS, questo insieme è partizionato in due sottoinsiemi funzionali: il \textit{requester} (la piattaforma), che agisce come \textit{mechanism designer}, e la popolazione di \textit{workers} (gli utenti mobili), detentori delle risorse di sensing e delle informazioni private.    
+    \item \(S = S_1 \times S_2 \times \dots \times S_n\) è lo spazio cartesiano dei profili di strategia. Qui \(S_i\) denota l'insieme delle azioni ammissibili per l'agente \(i\). A seconda del modello, \(S_i\) può essere discreto (es. decisione binaria di accettare/rifiutare un task) o continuo (es. il valore dell'offerta \(b_i \in \mathbb{R}^+\) in un'asta inversa). Un profilo di strategia \(s = (s_1, \dots, s_n) \in S\) rappresenta l'esito congiunto delle scelte di tutti i partecipanti.
+    \item \(u = (u_1, u_2, \dots, u_n)\) è il vettore delle funzioni di utilità, dove \(u_i : S \rightarrow \mathbb{R}\) associa a ogni profilo di strategie \(s\) il \textit{payoff} (guadagno netto) percepito dall'agente \(i\). È fondamentale notare che, per la natura strategica del gioco, l'utilità \(u_i(s_i, s_{-i})\) dipende non solo dalla propria azione \(s_i\), ma anche dalle strategie \(s_{-i}\) adottate dagli altri agenti.
+    \end{itemize}
+Nel contesto MCS, per un utente \(i\), l'utilità è tipicamente modellata come quasi-lineare: \(\,u_i = r_i - c_i\,\), dove \(r_i\) è l'incentivo monetario ricevuto e \(c_i\) rappresenta il costo complessivo sostenuto (inclusivo di consumo energetico, tempo impiegato e potenziale perdita di privacy).
+Sulla base delle modalità di interazione tra gli agenti in \(N\) e della struttura delle strategie in \(S\), è possibile operare una distinzione fondamentale tra i modelli di gioco, a seconda del livello di coordinamento consentito.
+
+\newpage
+\subsection{Giochi cooperativi e Non-Cooperativi}
+\label{subsec:giochi-coop-noncoop}
+
+Nel contesto del Mobile Crowdsensing, la letteratura distingue due macro-categorie di modelli basandosi sulla capacità degli agenti di sottoscrivere accordi vincolanti (\textit{binding agreements}).
+
+\begin{description}
+    \item[Giochi Cooperativi] In questo scenario, i partecipanti possono formare coalizioni stabili e negoziare la ripartizione di un valore aggregato. Il modello si fonda su una funzione caratteristica \(v(C)\) che assegna a ogni coalizione \(C \subseteq N\) il valore collettivo ottenibile~\cite{fudenberg1991game}. 
+    
+    L'obiettivo principale è garantire la stabilità della coalizione e l'equità nella distribuzione dei guadagni (tramite concetti come il \textit{Core} o il \textit{Valore di Shapley}). Sebbene concettualmente ideali per scenari collaborativi, nelle reti mobili reali questi modelli sono spesso penalizzati da elevati costi di comunicazione e dalla difficoltà di coordinare un gran numero di dispositivi eterogenei~\cite{capponi2019survey}.
+    
+    \textit{Esempio applicativo:} In una campagna di monitoraggio ambientale, i tassisti potrebbero coalizzarsi per coprire l'intera area urbana, negoziando collettivamente un premio unico da spartire successivamente in base al contributo di copertura di ciascuno.
+
+    \item[Giochi Non-Cooperativi] Costituiscono il modello dominante per il MCS grazie alla loro scalabilità. Assumono che ogni agente \(i\) agisca in modo egoistico (\textit{selfish}), massimizzando esclusivamente la propria funzione di utilità \(u_i\) in assenza di accordi vincolanti. Si assume inoltre che la razionalità degli agenti e le regole del gioco siano \textit{common knowledge}.
+    
+    Tale approccio porta a configurazioni di equilibrio (come l'Equilibrio di Nash) che spesso non sono Pareto-efficienti; la perdita di efficienza sociale dovuta alla mancanza di coordinamento centralizzato è quantificata dal \textit{Prezzo dell'Anarchia} (PoA)~\cite{fudenberg1991game,capponi2019survey}.
+    
+    \textit{Esempio applicativo:} Nel modello \textit{user-centric}, ciascun tassista partecipa individualmente a un'asta inversa per aggiudicarsi i task di sensing. L'allocazione delle risorse emerge dalla pura competizione di prezzo (bidding) tra i singoli, senza alcuna cooperazione preventiva tra i conducenti.
+\end{description}
+
+\newpage
+\subsection{Giochi Bayesiani}
+\label{subsec:giochi-bayesiani}
+
+La struttura informativa del gioco rappresenta un elemento cruciale per il \textit{Mechanism Design}. Mentre molti modelli teorici semplificati assumono l'ipotesi di \textbf{informazione completa} — ossia che tutti i giocatori conoscano le funzioni di utilità e i costi degli altri — nei sistemi MCS reali questa condizione è raramente plausibile. La piattaforma, infatti, non conosce i costi privati degli utenti, né la qualità istantanea dei loro sensori.
+
+Il formalismo più appropriato per descrivere tale scenario è quello dei \textbf{Giochi Bayesiani}. In questo modello, ciascun agente \(i\) è caratterizzato da un \emph{tipo} privato \(\theta_i\) (che può rappresentare il costo reale di sensing \(c_i\) o l'affidabilità del dispositivo), e gli altri giocatori non hanno accesso diretto a tale informazione~\cite{krishna2009auction,myerson1981optimal}. La piattaforma dispone unicamente di una distribuzione di probabilità a priori sui tipi, che ne sintetizza le aspettative (\textit{beliefs}).
+
+Questa asimmetria informativa solleva una questione centrale: come progettare meccanismi che inducano gli utenti a rivelare onestamente il proprio tipo privato? In assenza di incentivi adeguati, agenti razionali tenderanno inevitabilmente a manipolare le dichiarazioni (ad esempio sovrastimando i costi) per massimizzare il profitto, compromettendo l'efficienza complessiva del sistema~\cite{krishna2009auction}.
+
+\subsection{Equilibrio di Nash e Strategie Dominanti}
+\label{subsec:nash-dominanti}
+
+Per analizzare la stabilità delle interazioni strategiche, il concetto fondamentale è l'\textbf{Equilibrio di Nash (NE)}. Un profilo di strategie \(s^* = (s_1^*, \dots, s_n^*)\) costituisce un equilibrio di Nash se nessun giocatore ha incentivo a deviare unilateralmente dalla propria strategia, assunte come fisse le strategie degli altri:
+\[
+u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \quad \forall i \in N,\; \forall s_i \in S_i.
+\]
+
+In pratica, il NE descrive una situazione di stabilità in cui nessuno ha rimpianti rispetto alla propria scelta. Tuttavia, il concetto richiede che ogni agente sia in grado di prevedere correttamente le strategie altrui, un'ipotesi spesso troppo forte per utenti umani caratterizzati da razionalità limitata e incompleta conoscenza dell'ambiente.
+
+Per ovviare a questa complessità decisionale, molti meccanismi di incentivazione nel MCS mirano a soluzioni in \textbf{strategie dominanti}. Una strategia si definisce dominante per l'agente \(i\) se massimizza la sua utilità a prescindere dalle azioni degli altri.
+\newpage
+In questo quadro, un meccanismo d'asta è detto \textbf{truthful} (o \textit{strategy-proof}) se la rivelazione veritiera del proprio costo \(c_i\) — ossia porre l'offerta \(b_i = c_i\) — è sempre una strategia dominante:
+\[
+u_i(c_i, b_{-i}) \geq u_i(b_i', b_{-i}) \quad \forall b_i' \neq c_i,\; \forall b_{-i}.
+\]
+
+La proprietà di \textbf{Dominant Strategy Incentive Compatibility} (DSIC), supportata dal celebre \textit{Revelation Principle} di Myerson, riduce drasticamente il carico cognitivo per l'utente: non è necessario speculare sulle mosse degli avversari o calcolare complessi equilibri; per massimizzare l'utilità attesa è sufficiente dichiarare il proprio costo reale~\cite{myerson1981optimal}.
+
+\subsection{Giochi di Stackelberg}
+\label{subsec:stackelberg}
+
+Per modellare in modo più accurato l'interazione gerarchica tra piattaforma e utenti, è spesso utile ricorrere ai \textbf{Giochi di Stackelberg} (\textit{Leader-Follower}). In questo schema sequenziale, la piattaforma agisce come \emph{Leader}, fissando per prima i parametri chiave (es. budget totale, prezzi unitari o incentivi), mentre gli utenti (\emph{Followers}) osservano tale mossa e reagiscono scegliendo la propria strategia migliore~\cite{nie2019stackelberg}.
+
+La soluzione del gioco, nota come \textbf{Equilibrio di Stackelberg} (SE), si ricava mediante induzione a ritroso (\textit{backward induction}). Formalmente, il leader risolve un problema di ottimizzazione su due livelli (\textit{bilevel optimization}):
+\[
+\max_{s_L} \; u_L\bigl(s_L, s_F^*(s_L)\bigr),
+\]
+dove \(s_L\) è la strategia del leader e \(s_F^*(s_L)\) rappresenta la risposta ottima collettiva dei follower a tale strategia. Nel contesto del MCS, questo modello descrive efficacemente i sistemi \textbf{platform-centric}, dove l'ente centrale controlla le tariffe, differenziandosi dai meccanismi \textit{user-centric} basati su aste competitive.
+
+\newpage
+\subsection{Il meccanismo VCG}
+\label{subsec:vcg}
+
+Per formalizzare la garanzia di veridicità nelle dichiarazioni, il punto di riferimento in letteratura è il meccanismo \textbf{Vickrey-Clarke-Groves (VCG)}. Tale modello estende l'intuizione dell'asta di Vickrey a scenari multi-agente complessi, promettendo simultaneamente l'efficienza allocativa (massimizzazione del valore globale) e la proprietà di \textit{truthfulness}~\cite{krishna2009auction,myerson1981optimal}. Si consideri un'asta inversa per il MCS con un insieme di utenti \(N\). Ogni utente \(i\) sostiene un costo privato \(c_i\) e sottomette un'offerta (\textit{bid}) \(b_i\). La piattaforma deve selezionare un sottoinsieme di vincitori \(S \subseteq N\) per massimizzare il \textbf{benessere sociale} (\textit{Social Welfare}, SW), definito come la differenza tra il valore dei dati raccolti e i costi dichiarati:
+\[
+SW(b) = \max_{S \subseteq N} \left( V(S) - \sum_{j \in S} b_j \right)
+\]
+dove \(V(S)\) è la funzione di valutazione aggregata dei dati forniti dal gruppo \(S\). Sia \(S^*\) l'insieme ottimale dei vincitori calcolato sulla base del vettore delle offerte \(b\).
+
+Il cuore del meccanismo risiede nella \textbf{regola pivot di Clarke}, che determina il pagamento \(p_i\) per ogni vincitore \(i \in S^*\). L'idea è remunerare l'utente per il "valore aggiunto" che porta al sistema, calcolato come l'esternalità che la sua assenza causerebbe:
+\[
+p_i = 
+\underbrace{
+\max_{S' \subseteq N \setminus \{i\}} \left( V(S') - \sum_{j \in S'} b_j \right)
+}_{\text{SW ottimo senza l'agente } i}
+-
+\underbrace{
+\left( V(S^*) - \sum_{j \in S^*,\, j \neq i} b_j \right)
+}_{\text{SW degli altri agenti con } i \text{ presente}}
+\]
+Analizzando l'utilità netta dell'utente \(i\) (\(u_i = p_i - c_i\)) e isolando i termini che non dipendono dalla sua strategia \(b_i\) in una funzione \(h(b_{-i})\), si ottiene:
+\[
+u_i(b_i, b_{-i}) = \left( V(S^*) - \sum_{j \in S^*,\, j \neq i} b_j - c_i \right) + h(b_{-i})
+\]
+dove il contenuto centrale rappresenta il benessere sociale valutato al costo reale $c_i$; pertanto, l'agente massimizza la propria utilità solo favorendo \textit{l'ottimo globale}, rendendo la dichiarazione veritiera (\(b_i = c_i\)) una strategia dominante. Purtroppo, ciò non è applicabile all'attacco pratico, poiché determinare l'insieme ottimale \(S^*\) implica spesso la risoluzione di problemi NP-hard, rendendo indispensabile il ricorso a euristiche efficienti.
+
+\section{Sfide in contesti reali per un sistema MCS}
+\label{sec:sfide-operative}
+
+L'applicazione pratica dei modelli di Teoria dei Giochi e di \textit{Mechanism Design}, discussi nelle sezioni precedenti, deve confrontarsi con la complessità intrinseca degli scenari di \textit{deployment} reale. Mentre i modelli matematici tendono ad assumere condizioni idealizzate — sensori perfetti, disponibilità costante di utenti, razionalità illimitata — un sistema MCS operativo deve affrontare problematiche stocastiche legate alla qualità del dato, alla sicurezza, ai vincoli energetici e alle dinamiche spazio-temporali della folla. 
+
+\subsection{Qualità dell'Informazione (QoI)}
+\label{subsec:qoi}
+
+La \textbf{Quality of Information (QoI)} rappresenta la metrica fondamentale per valutare l'utilità di una campagna di sensing. In un ambiente partecipativo non controllato, la QoI è esposta a molteplici fattori di degrado. I sensori \textit{consumer-grade} integrati negli smartphone non sono calibrati professionalmente e risultano soggetti a \textit{drift} delle misurazioni e a rumore termico; a ciò si aggiunge il fattore umano, poiché l'inesperienza degli utenti può produrre errori macroscopici di acquisizione (fotografie sfocate, microfoni ostruiti, orientamento errato del magnetometro). Anche condizioni ambientali avverse, come la scarsa luminosità o l'elevato rumore di fondo, possono compromettere la qualità delle rilevazioni pur in presenza di hardware funzionante e operatori attenti. 
+
+Un aspetto controintuitivo del MCS è che il semplice aumento del numero di partecipanti non garantisce un miglioramento lineare della QoI (\textit{''more is not always better''}). In assenza di meccanismi di filtraggio, l'iniezione di dati rumorosi può degradare l'aggregato complessivo invece di arricchirlo. Per mitigare questi rischi, la letteratura propone due approcci complementari: l'adozione di algoritmi di \textbf{Truth Discovery} (ad esempio il \textit{Bayesian Truth Serum}), che stimano la ''verità'' pesando i contributi in base alla loro convergenza statistica senza richiedere un \textit{ground truth} noto a priori, e l'introduzione di sistemi di \textbf{Reputation Scoring}, che storicizzano l'affidabilità dei singoli utenti e ne modulano il peso nelle aggregazioni future. 
+
+\newpage
+\subsection{Trustworthiness e Privacy}
+\label{subsec:trust-privacy}
+
+La fiducia (\textit{trust}) in un sistema MCS è un concetto composito che riguarda sia l'affidabilità tecnica del dispositivo (\textit{trust by reliability}) sia l'onestà comportamentale dell'agente (\textit{trust by decision}). Sul piano della sicurezza, la piattaforma è vulnerabile a diverse tipologie di attacco, tra cui i \textbf{Sybil Attacks}, in cui un singolo utente crea molteplici identità fittizie per alterare l'aggregazione dei dati o ottenere indebitamente le ricompense, e il \textbf{Data Poisoning}, basato sull'invio intenzionale di dati falsi con l'obiettivo di distorcere le mappe di sensing o le decisioni derivate. 
+
+Parallelamente, la raccolta e la conservazione di tracce spazio-temporali solleva criticità significative in ambito \textbf{privacy}, esponendo gli utenti a rischi di re-identificazione e profilazione (\textit{inference attacks}). Le contromisure architetturali più robuste includono la \textbf{Differential Privacy}, che inietta rumore matematico controllato (ad esempio di tipo laplaciano o gaussiano) per rendere indistinguibile il contributo del singolo individuo, e protocolli di \textbf{Secure Multi-party Computation (SMPC)}, che consentono di calcolare statistiche aggregate (come la media del rumore in un quartiere) senza che la piattaforma abbia mai accesso ai singoli input in chiaro. 
+
+\subsection{Vincoli Energetici}
+\label{subsec:energia}
+
+Dal punto di vista dell'utente, l'energia è la risorsa critica per eccellenza. Il \textit{costo energetico} della partecipazione si distribuisce su tre componenti principali: l'attivazione dei sensori (particolarmente onerosa per GPS e giroscopio), l'elaborazione locale dei dati (ad esempio per crittografia o compressione) e, soprattutto, la trasmissione dei dati verso la rete. In molti casi, l'\textit{upload} attraverso interfacce radio cellulari (LTE/5G) costituisce la voce dominante di consumo. 
+
+Per garantire la sostenibilità a lungo termine, i meccanismi di selezione dovrebbero essere \textbf{battery-aware}, ovvero tenere esplicitamente conto dello stato di carica residua e della situazione d'uso del dispositivo, privilegiando ad esempio utenti in fase di ricarica o con ampie riserve energetiche. Inoltre, l'adozione di strategie di \textbf{piggybacking} consente di ridurre il consumo marginale accodando la trasmissione dei dati di sensing a sessioni di comunicazione già attive (come chiamate vocali, sessioni di navigazione web o sincronizzazioni periodiche di altre applicazioni). 
+
+\newpage
+\subsection{Copertura Spaziale e Mobilità}
+\label{subsec:copertura-mobilita}
+
+La natura dinamica della folla introduce sfide non banali nell'assegnazione dei task. La distribuzione spaziale degli utenti segue spesso leggi di potenza (\textit{power laws}), con forti eterogeneità: densità molto elevate nelle aree centrali e scarsità marcata nelle periferie. I meccanismi di incentivazione devono quindi guidare attivamente lo spostamento verso le cosiddette aree ''fredde'', per evitare la formazione di buchi informativi persistenti. 
+
+Per i task \textit{location-dependent}, la piattaforma necessita di modelli predittivi della disponibilità spaziale degli utenti. Mentre nelle simulazioni teoriche si ricorre frequentemente a modelli sintetici di mobilità (come il \textit{Random Waypoint}), nei sistemi reali è preferibile sfruttare tracce GPS storiche per addestrare modelli probabilistici (ad esempio catene di Markov) in grado di stimare la probabilità che un determinato utente sia disponibile in una certa cella spaziale in un dato intervallo temporale. 
+
+\subsection{Equità Distributiva: Indice di Gini}
+\label{subsec:gini}
+
+Oltre alla pura efficienza economica, un sistema MCS deve tenere conto dell'\textbf{equità distributiva} (\textit{fairness}) nella ripartizione dei compensi. Meccanismi che premiano sistematicamente solo gli utenti più efficienti (ovvero quelli con costi marginali minimi) producono, nel medio periodo, fenomeni di \textit{starvation} per la maggioranza dei partecipanti, che tendono ad abbandonare la piattaforma riducendone resilienza e capacità di copertura. 
+
+Per quantificare la disuguaglianza nella distribuzione dei ricavi, si utilizzano la \textbf{Curva di Lorenz} e il corrispondente \textbf{Coefficiente di Gini}. La Figura~\ref{fig:lorenz-gini} illustra la rappresentazione grafica standard: l'asse delle ascisse riporta la percentuale cumulativa degli utenti (ordinati per guadagno crescente), mentre l'asse delle ordinate mostra la percentuale cumulativa del budget distribuito. La diagonale a \(45^\circ\) rappresenta la perfetta equità (\(G = 0\)), mentre la curva di Lorenz evidenzia la distribuzione reale. 
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./Immagini/figura_2_4_curva_lorenz_indice_gini.png}
+    \caption{Curva di Lorenz e coefficiente di Gini. La linea tratteggiata a \(45^\circ\) rappresenta la perfetta equità, mentre la curva continua descrive la distribuzione reale dei compensi. Il coefficiente di Gini è proporzionale all'area compresa tra le due curve: valori elevati indicano una forte concentrazione delle ricompense nelle mani di pochi utenti.}
+    \label{fig:lorenz-gini}
+\end{figure}
+Il coefficiente di Gini \(G\) è definito come rapporto tra l'area \(A\) compresa tra la diagonale di equità e la curva di Lorenz e l'area totale \(A+B\):
+\[
+G = \frac{A}{A + B}.
+\]
+Il valore di \(G\) è compreso nell'intervallo \([0, 1]\): \(G = 0\) corrisponde a una distribuzione perfettamente equa (tutti ricevono lo stesso compenso), mentre \(G = 1\) rappresenta la massima disuguaglianza (un solo utente assorbe l'intero budget). Nel MCS, l'analisi del Gini rende evidente il trade-off tra \textbf{efficienza} ed \textbf{equità}: meccanismi estremamente efficienti tendono a produrre valori di \(G\) elevati. Mantenere questo indicatore entro soglie accettabili è fondamentale per la sostenibilità sociale della piattaforma. 
+
+\subsection{Analisi dei Pattern Temporali e Segmentazione dei Regimi}
+\label{subsec:pattern-temporali}
+
+I sistemi di Mobile Crowdsensing lavorano in scenari urbani che cambiano continuamente, influenzati dall'alternanza giorno/notte, dai giorni festivi e dalla stagionalità. Per creare algoritmi solidi, capaci di funzionare in condizioni così diverse, è fondamentale gestire questa complessità temporale seguendo un metodo strutturato.
+\begin{description}
+    \item[Discretizzazione e Feature Extraction] Il primo passo consiste nel suddividere l'orizzonte temporale in \textit{slot} di durata fissa (es. finestre orarie). Per ogni intervallo, vengono calcolate le metriche che descrivono lo stato del sistema, costruendo un vettore delle feature che include variabili chiave quali la densità di utenti attivi, il volume di task generati e la dispersione geografica della flotta. Questa trasformazione converte il flusso continuo di dati grezzi in una serie temporale discreta, pronta per l'analisi statistica.
+
+    \item[Clustering dei Regimi Operativi] Per identificare pattern ricorrenti senza imporre soglie arbitrarie, si adottano tecniche di apprendimento non supervisionato (\textit{Unsupervised Learning}). L'algoritmo \textbf{K-Means} viene utilizzato per raggruppare gli slot temporali in \(k\) cluster distinti, basandosi sulla similarità delle caratteristiche osservate. La qualità del raggruppamento e la scelta del numero ottimale di cluster sono guidate da metriche quantitative come il \textbf{Silhouette Score}, che valuta la coerenza interna di ogni gruppo.
+
+    \item[Caratterizzazione On-Peak vs Off-Peak] L'analisi dei centroidi dei cluster permette di interpretare semanticamente i regimi operativi. Tipicamente emergono due macro-scenari contrapposti:
+    \begin{itemize}
+        \item \textbf{Regime On-Peak (Alta Domanda):} Caratterizzato da un'elevata densità di utenti e abbondanza di risorse. In questo scenario, la piattaforma può sfruttare la competizione tra i partecipanti per ottimizzare i costi.
+        \item \textbf{Regime Off-Peak (Bassa Domanda):} Caratterizzato da scarsità di offerta e potenziali vuoti di copertura. Qui il rischio principale è l'impossibilità di servire i task, costringendo il sistema a incrementare gli incentivi per garantire la partecipazione.
+    \end{itemize}
+\end{description}
+Riconoscere questi scenari è fondamentale per superare i limiti delle politiche statiche: invece di applicare una logica unica per tutte le situazioni, il sistema può così adattare gli incentivi in tempo reale, rispondendo in modo intelligente alle variazioni della domanda e dell'offerta.
+
+\section{Razionalità Limitata (Bounded Rationality)}
+\label{sec:bounded-rationality}
+
+La modellazione classica dei meccanismi d'asta e della Teoria dei Giochi algoritmica poggia, tradizionalmente, sull'assunto neoclassico della \textbf{razionalità perfetta} (spesso personificata nell'\textit{Homo Economicus}). All'interno di questo paradigma, gli agenti sono idealizzati come decisori infallibili: si presume dispongano di una capacità computazionale illimitata, abbiano accesso a una conoscenza completa delle regole del gioco e agiscano secondo preferenze perfettamente coerenti e stabili nel tempo. Tuttavia, quando spostiamo l'attenzione dai modelli teorici ai sistemi di \textit{Mobile Crowdsensing} (MCS) reali, questa impalcatura scricchiola. 
+
+Nei contesti urbani, gli agenti sono esseri umani che interagiscono tramite smartphone in ambienti dinamici e spesso caotici. L'ipotesi di onniscienza e infallibilità risulta non solo eccessivamente semplificatrice, ma potenzialmente dannosa per la capacità predittiva dei modelli: ignorare la natura umana degli utenti rischia di portare alla progettazione di meccanismi che funzionano sulla carta, ma falliscono sul campo.
+
+\subsection{Bias Cognitivi e Limitazione: il modello di Herbert Simon}
+\label{subsec:simon-bias}
+
+Fu il premio Nobel Herbert Simon, già nel 1955, a introdurre il concetto rivoluzionario di \textbf{razionalità limitata} (\textit{bounded rationality}) per colmare il divario tra la teoria economica e l'osservazione empirica del comportamento umano~\cite{simon1955behavioral}. Secondo la prospettiva di Simon, la razionalità degli individui non è assoluta, ma è vincolata da tre fattori strutturali ineludibili:
+\begin{enumerate}
+    \item \textbf{Limiti cognitivi:} la mente umana possiede risorse finite in termini di attenzione, memoria di lavoro e capacità di calcolo.
+    \item \textbf{Imperfezione informativa:} raramente un decisore dispone di tutte le informazioni necessarie; spesso opera in condizioni di incertezza o ambiguità.
+    \item \textbf{Vincoli temporali:} la pressione del tempo impedisce di valutare esaustivamente tutte le alternative possibili prima di agire.
+    \newpage
+\end{enumerate}
+Di conseguenza, gli agenti reali abbandonano la pretesa di raggiungere l'ottimo globale in favore del criterio pragmatico del \textbf{satisficing} (crasi di \textit{satisfy} e \textit{suffice}). L'obiettivo dell'utente non è massimizzare matematicamente una funzione di utilità complessa, ma individuare una soluzione che sia ''sufficientemente buona'' da superare una soglia minima di accettabilità e benessere personale. Per navigare la complessità delle decisioni quotidiane senza rimanerne paralizzati, gli individui si affidano a scorciatoie mentali note come \textbf{euristiche} (\textit{fast-and-frugal heuristics}). Sebbene queste strategie siano efficienti ed evolutivamente vantaggiose, introducono deviazioni sistematiche dalla logica razionale, note come \textbf{bias cognitivi}~\cite{gigerenzer1996reasoning}.
+\newline
+\newline
+Nel contesto specifico del Crowdsensing, dove le micro-decisioni devono essere prese rapidamente, i bias che influenzano maggiormente il comportamento degli utenti sono:
+\begin{itemize}
+    \item \textbf{Anchoring bias (Effetto Ancoraggio):} È la tendenza a fare eccessivo affidamento sulla prima informazione offerta (l'"ancora") quando si deve prendere una decisione. Ad esempio, se l'interfaccia della piattaforma suggerisce un prezzo iniziale basso per un task, l'utente potrebbe percepire come "vantaggiosa" un'offerta di poco superiore, anche se questa rimane oggettivamente sottostimata rispetto ai costi reali.
+    \item \textbf{Loss aversion (Avversione alla perdita):} In psicologia economica, il dispiacere causato da una perdita è percepito con un'intensità molto maggiore rispetto al piacere derivante da un guadagno di pari entità. Nel MCS, questo significa che la paura di "sprecare" batteria o benzina inutilmente pesa più della prospettiva di guadagnare pochi euro, portando gli utenti ad adottare strategie di offerta eccessivamente prudenti o difensive.
+    \item \textbf{Overconfidence (Eccesso di fiducia):} Al polo opposto, si osserva spesso una sovrastima delle proprie capacità o una sottostima dei rischi. Un utente potrebbe credere erroneamente di poter completare un task in meno tempo o con meno sforzo di quanto realmente necessario, portandolo a fare offerte troppo basse che si riveleranno non profittevoli.
+    \newpage
+\end{itemize}
+
+\subsection{Modelli Fast-and-Frugal Trees (FFTs)}
+\label{subsec:fft}
+
+Per tradurre queste osservazioni psicologiche in un modello operativo e simulabile, la letteratura suggerisce l'adozione dei \textbf{Fast-and-Frugal Trees (FFTs)}~\cite{gigerenzer1996reasoning}. Un FFT è un modello decisionale estremamente snello, caratterizzato da una struttura lessicografica e \textit{non compensatoria}. A differenza dei modelli complessi in cui un difetto su un attributo può essere compensato da un pregio su un altro, nell'FFT l'agente esamina una sequenza di indizi (\textit{cues}) in un ordine di priorità rigido. A ogni passo (nodo), l'agente può prendere una decisione definitiva.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./Immagini/figura_2_5_fft.png}
+    \caption{Struttura decisionale Fast-and-Frugal Tree (FFT) a cascata applicata al MCS. Il processo inizia dal nodo radice in alto a sinistra e procede diagonalmente. A ogni bivio, il mancato soddisfacimento di un criterio critico (distanza, ricompensa) comporta l'immediata uscita dal sistema (rifiuto), senza che l'utente debba elaborare tutte le informazioni disponibili.}
+    \label{fig:fft}
+\end{figure}
+Come illustrato in Figura~\ref{fig:fft}, questo approccio modella fedelmente la natura ''sbrigativa'' dell'interazione umana su dispositivi mobili. L'utente non esegue un calcolo complesso di utilità attesa, ma applica una serie di filtri rapidi: se un task è troppo lontano o paga troppo poco, viene scartato immediatamente, rendendo irrilevanti eventuali altre caratteristiche positive. 
+\newline
+\newline
+L'integrazione di questi modelli decisionali nelle simulazioni è cruciale: permette di superare l'astrazione dell'agente perfettamente razionale e di comprendere come le soglie di attenzione individuali influenzino, a livello aggregato, la partecipazione alla campagna di crowdsensing. Questo passaggio dal comportamento micro-individuale alle dinamiche macro-sistemiche ci porta ad analizzare come tali euristiche impattino concretamente il meccanismo d'asta.
+
+\subsection{Impatto sui Meccanismi d'Asta}
+\label{subsec:br-aste}
+
+L'introduzione della razionalità limitata nello scenario di simulazione non è un mero esercizio accademico, ma ha ripercussioni profonde sulle dinamiche dell'asta. Le deviazioni dal comportamento teorico generano fenomeni che, se ignorati, renderebbero le previsioni inaffidabili. Tra gli effetti più rilevanti osservati si segnalano:
+
+\begin{enumerate}
+    \item \textbf{Incertezza e rumore nella stima dei costi:} Nel mondo reale, un utente non conosce il valore esatto di \(c_i\) (il costo per eseguire il task). Agisce sulla base di una stima approssimativa, influenzata dal traffico, dallo stato della batteria o semplicemente dall'umore. Questo introduce un "rumore" stocastico nel sistema che i modelli deterministici non prevedono.
+    \item \textbf{Overbidding strategico (Prudenza):} Anche in presenza di meccanismi \textit{truthful} (che incentivano la verità), l'avversione al rischio spinge gli utenti a chiedere un compenso superiore ai propri costi stimati (\(b_i > c_i\)). Questo "margine di sicurezza" serve a proteggersi da imprevisti, ma ha l'effetto collaterale di alzare i costi complessivi per la piattaforma.
+    \item \textbf{Underbidding opportunistico (Winner's Curse):} Utenti inesperti o troppo sicuri di sé (overconfidence) potrebbero offrire meno dei propri costi reali (\(b_i < c_i\)) nella speranza di vincere l'asta. Sebbene possano vincere nel breve termine, operano in perdita; questo genera frustrazione e porta inevitabilmente all'abbandono della piattaforma (\textit{churn}), danneggiando la sostenibilità del sistema a lungo termine.
+\end{enumerate}
+
+Tali evidenze dimostrano che le garanzie matematiche di \textit{truthfulness} non sono sufficienti, da sole, a governare il fattore umano. Diventa imperativo non solo progettare algoritmi robusti, ma testarli empiricamente contro popolazioni simulate dotate di razionalità limitata, approccio che costituisce il cuore della validazione sperimentale di questa tesi.
+
+\newpage
+\section{Submodularità e Ottimizzazione}
+\label{sec:submodularita}
+
+Al termine della fase di raccolta delle offerte (\textit{bidding}), la piattaforma affronta il problema decisionale critico: la determinazione dei vincitori (\textit{Winner Determination}). L'obiettivo è selezionare il sottoinsieme di utenti che massimizzi il valore complessivo dei dati raccolti (ad esempio, ottimizzando la copertura spaziale o la qualità informativa), nel rigoroso rispetto del vincolo di budget prefissato.
+
+Si tratta di un classico problema di \textbf{ottimizzazione combinatoria}: teoricamente, la piattaforma dovrebbe valutare ogni possibile combinazione di utenti per individuare la coalizione ottimale. Tuttavia, al crescere del numero di partecipanti, lo spazio delle soluzioni esplode esponenzialmente, rendendo il calcolo della soluzione esatta matematicamente intrattabile (un problema noto come \textit{NP-hard}). Per gestire tale complessità computazionale senza rinunciare alla qualità della soluzione, si ricorre alla teoria delle \textbf{funzioni submodulari}, che consente di ottenere allocazioni efficienti in tempi ridotti.
+
+\subsection{Proprietà di Submodularità}
+\label{subsec:def-submod}
+
+Nel contesto del Mobile Crowdsensing (MCS), la funzione di valutazione \(v(S)\) — che quantifica l'utilità aggregata di un insieme di utenti \(S\) — gode frequentemente della proprietà di \textbf{submodularità}.
+
+\begin{definition}[Funzione submodulare]
+\label{def:submodular}
+Sia \(f : 2^{\mathcal{U}} \rightarrow \mathbb{R}\) una funzione definita su tutti i possibili sottoinsiemi di utenti \(\mathcal{U}\). La funzione \(f\) è detta \emph{submodulare} se, per ogni coppia di insiemi \(A \subseteq B \subseteq \mathcal{U}\) e per ogni nuovo elemento \(x \in \mathcal{U} \setminus B\), vale la disuguaglianza:
+\[
+f(A \cup \{x\}) - f(A) \geq f(B \cup \{x\}) - f(B).
+\]
+\end{definition}
+
+In termini intuitivi, questa definizione formalizza il principio economico dei \textbf{rendimenti marginali decrescenti}. Il contributo marginale di un singolo utente \(x\) non è un valore assoluto, ma dipende dal contesto: è massimo quando l'insieme di utenti già selezionati \(A\) è ridotto (o vuoto), mentre diminuisce progressivamente quando l'insieme \(B\) diventa ampio e ricco di informazioni (Figura~\ref{fig:submodular}).
+
+\newpage
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./Immagini/figura_2_6_rendimenti_decrescenti_submodularita.png}
+    \caption{Visualizzazione dei rendimenti marginali decrescenti. L'area colorata rappresenta l'utilità totale \(v(S)\) accumulata. Le barre verticali indicano il valore aggiunto da un nuovo utente in fasi diverse: il contributo \(\Delta_1\) (fase iniziale) è nettamente superiore a \(\Delta_2\) (fase di saturazione). Questo andamento riflette la naturale ridondanza dei dati spaziali nel crowdsensing.}
+    \label{fig:submodular}
+\end{figure}
+
+Si consideri l'esempio pratico di un task di copertura fotografica urbana:
+\begin{itemize}
+    \item Il contributo del \textbf{primo utente} è elevato, in quanto copre un'area o un evento precedentemente non osservato, colmando una lacuna informativa totale.
+    \item Il contributo di un utente successivo, che osserva la stessa scena o un'area adiacente già coperta, è marginale a causa della ridondanza informativa.
+\end{itemize}
+Assumendo che la funzione sia anche \textbf{monotona} (l'aggiunta di risorse non decrementa mai l'utilità totale, ovvero \(A \subseteq B \Rightarrow f(A) \leq f(B)\)), la submodularità rappresenta il modello matematico di riferimento per descrivere l'aggregazione di informazioni in sistemi distribuiti.
+
+\newpage
+\subsection{Algoritmi Greedy}
+\label{subsec:greedy}
+
+La ricerca della soluzione ottima globale \(S^*\) tramite metodi di forza bruta (''Brute Force'') è impraticabile su larga scala. Fortunatamente, la struttura submodulare del problema legittima l'utilizzo di \textbf{algoritmi greedy} (golosi). Tale approccio costruisce la soluzione in modo iterativo e miope (\textit{myopic}), selezionando a ogni passo l'utente che offre il miglior incremento locale della funzione obiettivo, senza valutare le conseguenze future.
+
+Sebbene semplice, questa strategia è supportata da solide garanzie teoriche, come dimostrato dal celebre teorema di Nemhauser, Wolsey e Fisher:
+
+\begin{theorem}[Nemhauser-Wolsey-Fisher, 1978]
+\label{thm:nemhauser}
+Se la funzione obiettivo \(f\) è monotona, submodulare e non negativa, un algoritmo greedy che seleziona iterativamente l'elemento con il massimo guadagno marginale produce una soluzione \(S_{\text{greedy}}\) tale che:
+\[
+f(S_{\text{greedy}}) \geq \left(1 - \frac{1}{e}\right) f(S^*) \approx 0.632 \, f(S^*),
+\]
+dove \(S^*\) è la soluzione ottima globale ed \(e\) è la base dei logaritmi naturali~\cite{nemhauser1978analysis}. 
+\end{theorem}
+
+Questo risultato fornisce un \textit{lower bound} fondamentale: nel caso peggiore, l'algoritmo greedy garantisce almeno il \textbf{63\%} dell'efficienza della soluzione ottima (spesso irraggiungibile). Nelle applicazioni reali di MCS, le prestazioni osservate sono tipicamente molto superiori a questo limite teorico, approssimando l'ottimo con un costo computazionale polinomiale anziché esponenziale.
+
+\subsection{Selezione dei Vincitori (Winner Determination)}
+\label{subsec:wd-greedy}
+
+Nel meccanismo d'asta IMCU proposto in questa tesi, l'approccio greedy è impiegato per risolvere il problema di \textbf{Winner Determination}. L'algoritmo parte da un insieme vuoto \(S_0 = \emptyset\) e aggiunge iterativamente l'utente \(i\) che massimizza il \textbf{guadagno marginale netto}:
+\[
+\delta_i(S_{t-1}) = v(S_{t-1} \cup \{i\}) - v(S_{t-1}) - b_i.
+\]
+In ogni iterazione \(t\), il sistema valuta il bilancio tra l'incremento di utilità portato dall'utente e il prezzo \(b_i\) richiesto. Il processo termina all'esaurimento del budget o quando nessun utente disponibile fornisce un contributo netto positivo.
+
+Per ottimizzare l'esecuzione su dataset estesi e garantire la scalabilità, si implementa la tecnica della \textbf{Lazy Evaluation} (o \textit{Accelerated Greedy}). Tale metodo sfrutta la proprietà di submodularità per cui i guadagni marginali sono monotoni non-crescenti: il valore aggiunto di un utente non può aumentare man mano che l'insieme dei vincitori cresce. 
+Di conseguenza, non è necessario ricalcolare il valore attuale di tutti i candidati a ogni passo; se il valore ''vecchio'' (calcolato in iterazioni precedenti) di un utente è già inferiore al valore attuale del miglior candidato corrente, quell'utente può essere scartato senza ulteriori calcoli.

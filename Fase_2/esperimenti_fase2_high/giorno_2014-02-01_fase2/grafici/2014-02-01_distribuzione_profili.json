@@ -1,0 +1,28 @@
+{
+  "percorso_file": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_high/giorno_2014-02-01_fase2/grafici/2014-02-01_distribuzione_profili.png",
+  "tipo_grafico": "barre_profili_vincitori",
+  "parametri": {
+    "profili": [
+      "Quasi-Rational",
+      "Bounded Honest",
+      "Bounded Moderate",
+      "Bounded Opportunistic"
+    ]
+  },
+  "statistiche_dati": {
+    "n_profili": 4,
+    "totale_vincitori": 683,
+    "distribuzione_profili": {
+      "Quasi-Rational": 683,
+      "Bounded Honest": 0,
+      "Bounded Moderate": 0,
+      "Bounded Opportunistic": 0
+    },
+    "config_razionalita_limitata": {
+      "soglia_avviso_offerta_pct": 15.0,
+      "simula_azzardo_morale": true
+    },
+    "git_commit_hash": "27d70fd"
+  },
+  "timestamp_generazione": "2025-12-05T23:13:26.859565"
+}

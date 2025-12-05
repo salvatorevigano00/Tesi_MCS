@@ -1,0 +1,36 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_3/esperimenti_fase3_low/giorno_2014-02-01_fase3/fase3_efficiency_gap_2014-02-01.png",
+  "generated_at": "2025-12-05T23:18:15.907897",
+  "plot_type": "timeseries_valore_mech_vs_eff",
+  "parameters": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "annotazione_gap": true
+  },
+  "data_stats": {
+    "n_ore": 12,
+    "media_v_mech": 1211.5401861582673,
+    "media_v_eff": 798.7127120137303,
+    "media_gap": 412.8274741445368,
+    "tasso_rottura_pct": 34.07460015450184,
+    "totale_v_mech": 14538.482233899207,
+    "totale_v_eff": 9584.552544164764
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}

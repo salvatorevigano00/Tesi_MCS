@@ -1,0 +1,32 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_mixed/giorno_2014-02-01_fase2/grafici/2014-02-01_utilita_piattaforma.png",
+  "generated_at": "2025-12-05T23:13:33.580950",
+  "plot_type": "confronto_utilita",
+  "parameters": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ]
+  },
+  "data_stats": {
+    "n_ore": 12,
+    "media_u0_mech": 434.7107754861225,
+    "media_u0_eff": 320.87360941161586,
+    "media_gap_utilita": 113.83716607450668
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}

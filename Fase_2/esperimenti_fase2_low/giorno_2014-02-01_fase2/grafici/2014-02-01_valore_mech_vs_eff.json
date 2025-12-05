@@ -1,0 +1,36 @@
+{
+  "percorso_file": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_2/esperimenti_fase2_low/giorno_2014-02-01_fase2/grafici/2014-02-01_valore_mech_vs_eff.png",
+  "tipo_grafico": "timeseries_valore_mech_vs_eff",
+  "parametri": {
+    "ore": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "annotazione_gap": true
+  },
+  "statistiche_dati": {
+    "n_ore": 12,
+    "media_v_mech": 1086.8184810269265,
+    "media_v_eff": 964.2701436357684,
+    "media_gap": 122.54833739115838,
+    "tasso_rottura_pct": 11.275879047931113,
+    "totale_v_mech": 13041.82177232312,
+    "totale_v_eff": 11571.24172362922,
+    "config_razionalita_limitata": {
+      "soglia_avviso_offerta_pct": 15.0,
+      "simula_azzardo_morale": true
+    },
+    "git_commit_hash": "27d70fd"
+  },
+  "timestamp_generazione": "2025-12-05T23:13:40.015517"
+}

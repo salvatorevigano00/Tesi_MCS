@@ -1,0 +1,35 @@
+{
+  "figure_path": "/Users/salvatorevigano/Documents/MCS_Thesis/Fase_1/experiments_radius_4000/day_2014-02-01/figures/2014-02-01_kpi_timeseries.png",
+  "generated_at": "2025-12-05T22:54:34.179576",
+  "plot_type": "timeseries_kpi",
+  "parameters": {
+    "hours": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "n_datapoints": 12
+  },
+  "data_stats": {
+    "n_hours": 12,
+    "mean_platform_value": 2985.2220535948295,
+    "mean_total_payments": 1654.8227945664096,
+    "mean_platform_utility": 1330.3992590284208,
+    "total_platform_value": 35822.664643137956,
+    "total_payments": 19857.873534796916
+  },
+  "software_versions": {
+    "python": "3.13.9",
+    "matplotlib": "3.10.6",
+    "numpy": "2.3.3"
+  }
+}
