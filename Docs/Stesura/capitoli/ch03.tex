@@ -155,7 +155,7 @@ La Figura~\ref{fig:star-vs-tsp} mostra come il modello star differisce da un rou
     \label{fig:star-vs-tsp}
 \end{figure}
 \paragraph{Nota sulle limitazioni dello Star Routing.}
-Il modello di star routing è, per costruzione, una \textbf{semplificazione conservativa} rispetto a un routing ottimale basato sul problema del commesso viaggiatore (Traveling Salesman Problem, TSP). In letteratura è noto che, per piccoli insiemi di punti (ad esempio cluster di 3--8 nodi), uno schema di tipo ``stella'' può sovrastimare la lunghezza del tour ottimale di un fattore tipicamente compreso tra 2 e 4, a seconda della disposizione spaziale dei task. Questa scelta va quindi letta come una forma di cautela: si preferisce assumere costi leggermente più alti rispetto al minimo teorico, anziché rischiare di sottostimarli.
+Il modello di star routing è, per costruzione, una \textbf{semplificazione conservativa} rispetto a un routing ottimale basato sul problema del commesso viaggiatore (Traveling Salesman Problem, TSP). In letteratura è noto che, per piccoli insiemi di punti (ad esempio cluster di 3--8 nodi), uno schema di tipo ''stella'' può sovrastimare la lunghezza del tour ottimale di un fattore tipicamente compreso tra 2 e 4, a seconda della disposizione spaziale dei task. Questa scelta va quindi letta come una forma di cautela: si preferisce assumere costi leggermente più alti rispetto al minimo teorico, anziché rischiare di sottostimarli.
 \begin{remark}
 L'adozione dello star routing ha alcune conseguenze dirette sul comportamento del meccanismo:
 \begin{enumerate}
@@ -163,7 +163,7 @@ L'adozione dello star routing ha alcune conseguenze dirette sul comportamento de
     
     \item \textbf{Pagamenti critici non sottostimati}: i pagamenti calcolati a partire da questi costi rimangono su un ordine di grandezza tale da garantire la proprietà di \textit{Individual Rationality} anche se, nella realtà, l'utente scegliesse un percorso non ottimale.
     
-    \item \textbf{Efficienza leggermente ridotta, robustezza aumentata}: si sacrifica una parte dell'efficienza allocativa potenziale per ottenere un comportamento più robusto e ``fail-safe'' dal punto di vista economico.
+    \item \textbf{Efficienza leggermente ridotta, robustezza aumentata}: si sacrifica una parte dell'efficienza allocativa potenziale per ottenere un comportamento più robusto e ''fail-safe'' dal punto di vista economico.
 \end{enumerate}
 \end{remark}
 
@@ -239,7 +239,7 @@ Formalmente, indicando con $U_i(b_i \,|\, \mathbf{b}_{-i})$ l'utilità attesa de
 U_i(c_i \,|\, \mathbf{b}_{-i}) \geq U_i(b'_i \,|\, \mathbf{b}_{-i}) \quad \forall b'_i \neq c_i, \, \forall \mathbf{b}_{-i}
 \end{equation}
 
-Questa uguaglianza costituisce la \textbf{Ground Truth} comportamentale della Fase~1 (come discusso nel dettaglio nel Capitolo~5): la simulazione non serve a ``verificare'' empiricamente che gli utenti \textit{scelgano} di essere veritieri (proprietà già garantita a priori dalla teoria), ma piuttosto a simulare numericamente l'\textbf{Equilibrio di Nash} del gioco, assumendo che l'intera popolazione di agenti abbia già convergito verso il comportamento ottimale.
+Questa uguaglianza costituisce la \textbf{Ground Truth} comportamentale della Fase~1 (come discusso nel dettaglio nel Capitolo~5): la simulazione non serve a ''verificare'' empiricamente che gli utenti \textit{scelgano} di essere veritieri (proprietà già garantita a priori dalla teoria), ma piuttosto a simulare numericamente l'\textbf{Equilibrio di Nash} del gioco, assumendo che l'intera popolazione di agenti abbia già convergito verso il comportamento ottimale.
 \end{proof}
 \newpage
 \subsection{Funzione di Utilità dell'Agente}
